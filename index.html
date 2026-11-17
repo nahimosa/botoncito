@@ -19,16 +19,15 @@
 
     <style>
         :root {
-            --bg-deep: #07020a;
-            --bg-wine: #18061c;
+            --bg-deep: #050208;
+            --bg-wine: #16051a;
             --accent-rose: #e63973;
             --accent-soft: #f4a8c4;
             --accent-cream: #fdf8f2;
             --ink-dark: #2c1810;
-            --ink-muted: #5c4033;
-            --urano-cyan: #38bdf8;
-            --saturno-sage: #34d399;
-            --border-subtle: rgba(244, 168, 196, 0.24);
+            --urano-cyan: #7dd3fc;
+            --saturno-sage: #6ee7b7;
+            --border-subtle: rgba(244, 168, 196, 0.2);
             --safe-top: env(safe-area-inset-top, 16px);
             --safe-bottom: env(safe-area-inset-bottom, 16px);
             --safe-left: env(safe-area-inset-left, 16px);
@@ -63,29 +62,28 @@
             position: fixed;
             bottom: max(16px, var(--safe-bottom));
             left: max(16px, var(--safe-left));
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: rgba(18, 7, 24, 0.92);
-            border: 1px solid var(--border-subtle);
-            color: var(--accent-soft);
+            background: rgba(14, 6, 20, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: rgba(255, 255, 255, 0.75);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             z-index: 450;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
         .sfx-mute-btn:hover {
             transform: scale(1.06);
-            border-color: var(--accent-rose);
+            border-color: var(--accent-soft);
         }
 
         .sfx-mute-btn svg {
-            width: 17px;
-            height: 17px;
+            width: 16px;
+            height: 16px;
             fill: none;
             stroke: currentColor;
             stroke-width: 1.8;
@@ -93,7 +91,7 @@
             stroke-linejoin: round;
         }
 
-        /* GESTIÓN DE PANTALLAS (ACELERADA POR GPU) */
+        /* GESTIÓN DE PANTALLAS */
         .screen {
             display: none;
             width: 100%;
@@ -118,7 +116,7 @@
            PANTALLA 0: SOBRE CERRADO Y CARTA COMPLETA AL ABRIR
            ======================================================== */
         #envelope-screen {
-            background: radial-gradient(circle at 50% 42%, #260c29 0%, #0e0312 65%, #050108 100%);
+            background: radial-gradient(circle at 50% 42%, #220a26 0%, #0b020f 68%, #040006 100%);
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -154,15 +152,14 @@
             height: min(236px, 56vw);
             background: #dfc7ae;
             border-radius: 10px;
-            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.85), 0 0 35px rgba(230, 57, 115, 0.18);
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.85), 0 0 35px rgba(230, 57, 115, 0.15);
             transform-style: preserve-3d;
             transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
         }
 
-        /* Cuando el sobre se abre, baja suavemente para dejar ver la carta completa */
         .envelope.opened {
-            transform: translate3d(0, 125px, 0) scale(0.92);
+            transform: translate3d(0, 128px, 0) scale(0.92);
         }
 
         .envelope-back-inside {
@@ -174,7 +171,6 @@
             border: 1px solid rgba(120, 82, 48, 0.45);
         }
 
-        /* CARTA INTERIOR: INVISIBLE CERRADA, COMPLETA Y GRANDE AL SALIR */
         .envelope-letter {
             position: absolute;
             left: 50%;
@@ -202,17 +198,15 @@
             will-change: transform, opacity;
         }
 
-        /* Al abrirse se posiciona arriba y al frente mostrándose 100% completa */
         .envelope.opened .envelope-letter {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
             transform: translate3d(-50%, -92%, 30px) scale(1.04);
             z-index: 25;
-            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.85), 0 0 25px rgba(244, 168, 196, 0.25);
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.85), 0 0 25px rgba(244, 168, 196, 0.22);
         }
 
-        /* Bolsillo frontal que oculta la carta cuando está cerrado */
         .envelope-front-pocket {
             position: absolute;
             inset: 0;
@@ -224,7 +218,7 @@
         }
 
         .envelope.opened .envelope-front-pocket {
-            opacity: 0.45;
+            opacity: 0.42;
         }
 
         .envelope-fold-left {
@@ -266,7 +260,6 @@
             z-index: 1;
         }
 
-        /* Sello de lacre clásico con inicial G */
         .wax-seal {
             position: absolute;
             top: 55%;
@@ -347,8 +340,8 @@
             margin-top: 28px;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(16px, 3.6vw, 19px);
-            color: #e6c8d8;
+            font-size: clamp(16px, 3.6vw, 18.5px);
+            color: rgba(230, 200, 216, 0.8);
             letter-spacing: 0.4px;
             text-align: center;
             transition: opacity 0.3s ease;
@@ -379,17 +372,13 @@
             transition: background 0.2s ease, transform 0.15s ease;
         }
 
-        .letter-btn-inline:hover, .letter-btn-inline:active {
+        .letter-btn-inline:hover {
             background: #a8234d;
             transform: translateY(-1px);
         }
 
         .letter-btn-galaxy {
             background: #2c1828;
-        }
-
-        .letter-btn-galaxy:hover {
-            background: #42243c;
         }
 
         .envelope-actions {
@@ -419,24 +408,24 @@
         .btn-env-action {
             background: linear-gradient(135deg, #b82555, #6e1233);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            padding: 11px 22px;
-            border-radius: 26px;
-            font-size: clamp(12.5px, 2.7vw, 14px);
-            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 10px 22px;
+            border-radius: 24px;
+            font-size: clamp(12.5px, 2.6vw, 13.5px);
+            font-weight: 500;
             letter-spacing: 0.3px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .btn-env-action:hover, .btn-env-action:active {
-            transform: translateY(-2px);
-            border-color: rgba(255, 255, 255, 0.6);
+        .btn-env-action:hover {
+            transform: translateY(-1px);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         .btn-env-secondary {
-            background: rgba(26, 12, 32, 0.9);
+            background: rgba(22, 10, 28, 0.88);
             border-color: var(--border-subtle);
         }
 
@@ -444,7 +433,7 @@
            PANTALLA 1: VIDEO SORPRESA Y SPIDERMAN
            ======================================================== */
         #video-screen {
-            background-color: #060309;
+            background-color: #050208;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -461,7 +450,7 @@
             align-items: center;
             border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85);
             background: #000;
             border: 1px solid var(--border-subtle);
         }
@@ -493,16 +482,16 @@
         }
 
         .play-btn-initial {
-            background: linear-gradient(135deg, #c2185b, #880e4f);
+            background: linear-gradient(135deg, #b82555, #6e1233);
             color: white;
-            border: 1px solid rgba(255, 200, 220, 0.45);
+            border: 1px solid rgba(255, 200, 220, 0.4);
             padding: 14px 30px;
             border-radius: 30px;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: clamp(18px, 4vw, 22px);
             font-weight: 600;
-            box-shadow: 0 10px 30px rgba(194, 24, 91, 0.5);
+            box-shadow: 0 10px 30px rgba(184, 37, 85, 0.45);
             cursor: pointer;
         }
 
@@ -511,9 +500,9 @@
             top: 60%;
             left: 45%;
             transform: translate3d(-50%, -50%, 0);
-            background: rgba(194, 24, 91, 0.9);
+            background: rgba(184, 37, 85, 0.9);
             color: #fff;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.45);
             padding: 10px 22px;
             border-radius: 25px;
             font-family: 'Cormorant Garamond', serif;
@@ -531,7 +520,6 @@
             pointer-events: auto;
         }
 
-        /* SPIDERMAN EN TELARAÑA */
         .spiderman-skip-wrapper {
             position: fixed;
             bottom: max(20px, var(--safe-bottom));
@@ -547,8 +535,8 @@
         }
 
         @keyframes spideyPendulumSwing {
-            0%, 100% { transform: rotate(-2.8deg) translate3d(0, 0, 0); }
-            50% { transform: rotate(2.8deg) translate3d(0, -6px, 0); }
+            0%, 100% { transform: rotate(-2.6deg) translate3d(0, 0, 0); }
+            50% { transform: rotate(2.6deg) translate3d(0, -6px, 0); }
         }
 
         .spiderman-avatar-box {
@@ -563,35 +551,35 @@
             bottom: 92%;
             left: 50%;
             transform: translateX(-50%);
-            width: 2px;
+            width: 1.5px;
             height: 110vh;
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.55);
             pointer-events: none;
         }
 
         .spiderman-bubble {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.96);
             color: #991b1b;
-            border: 2px solid #dc2626;
-            padding: 8px 14px;
-            border-radius: 16px 16px 4px 16px;
-            font-size: clamp(12px, 2.5vw, 13.5px);
+            border: 1.5px solid #dc2626;
+            padding: 7px 13px;
+            border-radius: 14px 14px 4px 14px;
+            font-size: clamp(11.5px, 2.4vw, 13px);
             font-weight: 600;
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
             white-space: nowrap;
         }
 
         .spiderman-avatar {
-            width: clamp(50px, 11vw, 64px);
-            height: clamp(50px, 11vw, 64px);
+            width: clamp(48px, 10.5vw, 62px);
+            height: clamp(48px, 10.5vw, 62px);
         }
 
         /* ========================================================
-           PANTALLA 2: GALAXIA 3D (URANO Y SATURNO)
+           PANTALLA 2: GALAXIA 3D AESTHETIC & MINIMALISTA
            ======================================================== */
         #galaxy-screen {
             position: relative;
-            background: radial-gradient(circle at center, #110318 0%, #040007 100%);
+            background: radial-gradient(circle at center, #0e0314 0%, #030006 100%);
         }
 
         #galaxy-canvas {
@@ -609,7 +597,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 max(16px, var(--safe-right));
+            padding: 0 max(18px, var(--safe-right));
             pointer-events: none;
             z-index: 30;
         }
@@ -618,9 +606,9 @@
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-weight: 600;
-            font-size: clamp(22px, 4.2vw, 34px);
-            color: #ffffff;
-            text-shadow: 0 2px 16px rgba(230, 57, 115, 0.7);
+            font-size: clamp(22px, 4vw, 32px);
+            color: rgba(255, 255, 255, 0.94);
+            letter-spacing: 0.3px;
             pointer-events: auto;
         }
 
@@ -628,179 +616,147 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
             pointer-events: auto;
         }
 
         .btn-planet-shortcut {
-            background: rgba(10, 25, 38, 0.9);
-            color: #bae6fd;
-            border: 1px solid rgba(56, 189, 248, 0.45);
-            padding: 7px 14px;
+            background: rgba(10, 18, 28, 0.72);
+            color: rgba(224, 242, 254, 0.9);
+            border: 1px solid rgba(125, 211, 252, 0.3);
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: clamp(11.5px, 2.2vw, 13px);
+            font-size: 12px;
             font-weight: 500;
+            letter-spacing: 0.3px;
             cursor: pointer;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .btn-planet-shortcut:hover {
-            transform: translateY(-1px);
             border-color: var(--urano-cyan);
+            background: rgba(14, 30, 46, 0.9);
         }
 
         .btn-planet-saturno {
-            background: rgba(8, 28, 20, 0.9);
-            color: #a7f3d0;
-            border-color: rgba(52, 211, 153, 0.45);
+            background: rgba(8, 22, 16, 0.72);
+            color: rgba(209, 250, 229, 0.9);
+            border-color: rgba(110, 231, 183, 0.3);
         }
 
         .btn-planet-saturno:hover {
             border-color: var(--saturno-sage);
+            background: rgba(10, 34, 24, 0.9);
         }
 
-        .btn-go-table {
-            background: rgba(38, 12, 32, 0.92);
-            color: #fce7f3;
-            border: 1px solid rgba(244, 168, 196, 0.45);
-            padding: 7px 16px;
+        /* Botón minimalista para regresar al centro cuando estás en Urano o Saturno */
+        .btn-return-center {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: clamp(11.5px, 2.3vw, 13px);
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.2s ease, background 0.2s ease;
+            display: none;
+            transition: background 0.2s ease;
         }
 
-        .btn-go-table:hover {
-            transform: translateY(-1px);
-            background: rgba(66, 18, 52, 0.95);
+        .btn-return-center.visible {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
+        .btn-return-center:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ÚNICO ACCESO LIMPIO A NUESTRA MESA (HELLO KITTY) */
         .kitty-peek-btn {
             background: none;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
-            transform: rotate(-10deg);
+            gap: 6px;
+            padding-left: 4px;
             transition: transform 0.25s ease;
         }
 
         .kitty-peek-btn:hover {
-            transform: rotate(-2deg) scale(1.06);
+            transform: scale(1.05);
         }
 
         .kitty-peek-bubble {
-            background: #ffffff;
-            color: #9d174d;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 9px;
-            border-radius: 10px;
-            border: 1.5px solid #f472b6;
+            background: rgba(255, 255, 255, 0.94);
+            color: #881337;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 11px;
+            border-radius: 14px;
+            border: 1px solid rgba(244, 114, 182, 0.5);
             white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .kitty-peek-svg {
-            width: clamp(44px, 9.5vw, 58px);
-            height: clamp(44px, 9.5vw, 58px);
+            width: clamp(40px, 8.5vw, 50px);
+            height: clamp(40px, 8.5vw, 50px);
+            display: block;
+            transform: rotate(-8deg);
+        }
+
+        /* Capa de partículas voladoras para la transición Planeta -> Tabla */
+        #flying-transition-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 260;
+            overflow: hidden;
+        }
+
+        .flying-clone-chip {
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(14, 34, 54, 0.95);
+            border: 1px solid var(--urano-cyan);
+            color: #f0f9ff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 14px;
+            white-space: nowrap;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            will-change: transform, opacity;
+            transform-origin: center center;
+        }
+
+        .flying-clone-poster {
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--saturno-sage);
+            background: #062417;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75);
+            will-change: transform, width, height, opacity;
+            transform-origin: top left;
+        }
+
+        .flying-clone-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
-        /* HUD DE ÓRBITA PLANETARIA */
-        .planet-orbit-hud {
-            position: absolute;
-            top: max(72px, calc(var(--safe-top) + 56px));
-            left: 50%;
-            transform: translate3d(-50%, -15px, 0);
-            background: rgba(10, 18, 28, 0.95);
-            border: 1px solid rgba(56, 189, 248, 0.55);
-            border-radius: 24px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            z-index: 45;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
-            max-width: 92vw;
-            text-align: center;
-        }
-
-        .planet-orbit-hud.visible {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate3d(-50%, 0, 0);
-        }
-
-        .planet-orbit-hud.saturno-theme {
-            background: rgba(7, 22, 16, 0.95);
-            border-color: rgba(52, 211, 153, 0.55);
-        }
-
-        .hud-planet-text {
-            font-size: clamp(12px, 2.4vw, 13.5px);
-            color: #e0f2fe;
-            font-weight: 400;
-        }
-
-        .hud-btn-action {
-            background: var(--urano-cyan);
-            color: #061826;
-            border: none;
-            padding: 7px 15px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .planet-orbit-hud.saturno-theme .hud-btn-action {
-            background: var(--saturno-sage);
-            color: #041f14;
-        }
-
-        .hud-btn-back {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            padding: 7px 14px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .galaxy-hint {
-            position: absolute;
-            bottom: max(14px, var(--safe-bottom));
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(86%, 640px);
-            font-size: clamp(11.5px, 2.2vw, 13px);
-            color: rgba(245, 225, 238, 0.9);
-            pointer-events: none;
-            z-index: 20;
-            text-align: center;
-            background: rgba(14, 5, 20, 0.9);
-            border: 1px solid var(--border-subtle);
-            padding: 9px 18px;
-            border-radius: 24px;
-            line-height: 1.45;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
-        }
-
-        .hint-badge-urano { color: var(--urano-cyan); font-weight: 600; }
-        .hint-badge-saturno { color: var(--saturno-sage); font-weight: 600; }
-
         /* ========================================================
-           PANTALLA 3: MESA DE RECUERDOS (60 FPS PUROS)
+           PANTALLA 3: MESA DE RECUERDOS
            ======================================================== */
         #table-screen {
             background: #241107;
@@ -818,7 +774,7 @@
             position: fixed;
             inset: 0;
             background: 
-                radial-gradient(ellipse at 50% 30%, rgba(255, 175, 100, 0.18) 0%, rgba(36, 15, 5, 0.65) 55%, rgba(10, 4, 1, 0.96) 100%),
+                radial-gradient(ellipse at 50% 30%, rgba(255, 175, 100, 0.16) 0%, rgba(36, 15, 5, 0.65) 55%, rgba(10, 4, 1, 0.96) 100%),
                 repeating-linear-gradient(
                     90deg,
                     #261106 0px,
@@ -834,8 +790,8 @@
             position: sticky;
             top: 0;
             width: 100%;
-            background: rgba(20, 9, 4, 0.95);
-            border-bottom: 1px solid rgba(255, 210, 170, 0.14);
+            background: rgba(18, 8, 3, 0.95);
+            border-bottom: 1px solid rgba(255, 210, 170, 0.12);
             padding: max(14px, var(--safe-top)) 22px 14px;
             display: flex;
             justify-content: space-between;
@@ -852,19 +808,19 @@
         }
 
         .btn-back-galaxy {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: #fae5d3;
-            border: 1px solid rgba(250, 229, 211, 0.3);
+            border: 1px solid rgba(250, 229, 211, 0.25);
             padding: 7px 16px;
             border-radius: 20px;
-            font-size: clamp(12px, 2.4vw, 13.5px);
+            font-size: clamp(12px, 2.4vw, 13px);
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s ease;
         }
 
         .btn-back-galaxy:hover {
-            background: rgba(230, 57, 115, 0.35);
+            background: rgba(230, 57, 115, 0.3);
         }
 
         .wood-table-grid {
@@ -931,12 +887,12 @@
         }
 
         /* ========================================================
-           CONTENEDOR DE SECCIONES (OPTIMIZADO SIN LAG DE BLUR)
+           CONTENEDOR DE SECCIONES
            ======================================================== */
         #section-modal-container {
             position: fixed;
             inset: 0;
-            background: #0b0310;
+            background: #09020e;
             z-index: 120;
             display: none;
             flex-direction: column;
@@ -959,7 +915,7 @@
         }
 
         .btn-close-section {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
             color: #f5d0fe;
             border: 1px solid var(--border-subtle);
             padding: 8px 18px;
@@ -971,7 +927,7 @@
         }
 
         .btn-close-section:hover {
-            background: rgba(230, 57, 115, 0.35);
+            background: rgba(230, 57, 115, 0.3);
         }
 
         .section-inner-content {
@@ -979,7 +935,7 @@
             max-width: 880px;
             margin: 0 auto;
             display: none;
-            animation: sectionFadeIn 0.32s ease-out forwards;
+            animation: sectionFadeIn 0.3s ease-out forwards;
         }
 
         .section-inner-content.active {
@@ -987,7 +943,7 @@
         }
 
         @keyframes sectionFadeIn {
-            from { opacity: 0; transform: translate3d(0, 12px, 0); }
+            from { opacity: 0; transform: translate3d(0, 10px, 0); }
             to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
 
@@ -1012,7 +968,6 @@
             line-height: 1.65;
         }
 
-        /* 1. SECCIÓN LA CARTA */
         .parchment-letter-card {
             background: var(--accent-cream);
             color: var(--ink-dark);
@@ -1045,7 +1000,6 @@
             margin-top: 28px;
         }
 
-        /* 2. SECCIÓN LO QUE AMO DE TI (100 RAZONES) */
         .reasons-search-box {
             display: flex;
             justify-content: center;
@@ -1074,7 +1028,7 @@
 
         .reason-card-pill {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(244, 168, 196, 0.18);
+            border: 1px solid rgba(244, 168, 196, 0.16);
             padding: 14px 18px;
             border-radius: 12px;
             font-size: 13.5px;
@@ -1085,8 +1039,8 @@
         }
 
         .reason-num-badge {
-            background: rgba(230, 57, 115, 0.25);
-            border: 1px solid rgba(230, 57, 115, 0.5);
+            background: rgba(230, 57, 115, 0.22);
+            border: 1px solid rgba(230, 57, 115, 0.45);
             color: #fbcfe8;
             font-size: 11px;
             font-weight: 600;
@@ -1095,9 +1049,9 @@
             flex-shrink: 0;
         }
 
-        /* 3. SECCIÓN NUESTRA FECHA (11 DE NOVIEMBRE 4:30 PM) */
+        /* SECCIÓN NUESTRA FECHA (11 DE NOVIEMBRE 4:30 AM) */
         .love-counter-box {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             border-radius: 20px;
             padding: 34px 22px;
@@ -1108,8 +1062,8 @@
 
         .date-badge-pill {
             display: inline-block;
-            background: rgba(230, 57, 115, 0.18);
-            border: 1px solid rgba(230, 57, 115, 0.45);
+            background: rgba(230, 57, 115, 0.16);
+            border: 1px solid rgba(230, 57, 115, 0.4);
             color: #fbcfe8;
             padding: 6px 18px;
             border-radius: 20px;
@@ -1128,7 +1082,7 @@
         }
 
         .counter-unit-col {
-            background: rgba(24, 8, 30, 0.85);
+            background: rgba(20, 7, 26, 0.85);
             border: 1px solid var(--border-subtle);
             border-radius: 14px;
             padding: 16px 18px;
@@ -1151,7 +1105,7 @@
             margin-top: 4px;
         }
 
-        /* 4. SECCIÓN NUESTRAS FOTOS (POLAROIDS) */
+        /* SECCIÓN FOTOS */
         .memories-grid-new {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1195,9 +1149,9 @@
             margin-top: 12px;
         }
 
-        /* 5. SECCIÓN BUZÓN DE AMOR */
+        /* SECCIÓN BUZÓN */
         .mailbox-card {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             border-radius: 20px;
             padding: clamp(24px, 5vw, 38px);
@@ -1236,7 +1190,7 @@
 
         .btn-submit-mailbox {
             width: 100%;
-            background: linear-gradient(135deg, #c2185b, #880e4f);
+            background: linear-gradient(135deg, #b82555, #6e1233);
             color: white;
             border: none;
             padding: 14px 24px;
@@ -1247,9 +1201,9 @@
             transition: opacity 0.2s ease;
         }
 
-        /* 6. SALA DE MÚSICA & SPOTIFY NORMAL */
+        /* SALA DE MÚSICA & SPOTIFY */
         .spotify-official-embed-wrap {
-            background: rgba(18, 12, 24, 0.95);
+            background: rgba(16, 10, 22, 0.95);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 18px;
@@ -1295,7 +1249,7 @@
         }
 
         .genre-pill-btn {
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-subtle);
             color: #f3e8ff;
             padding: 7px 16px;
@@ -1368,7 +1322,7 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(6, 2, 10, 0.88);
+            background: rgba(5, 2, 9, 0.86);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -1385,8 +1339,8 @@
         }
 
         .letter-card {
-            background: #16071c;
-            border: 1px solid rgba(244, 168, 196, 0.45);
+            background: #14061a;
+            border: 1px solid rgba(244, 168, 196, 0.4);
             box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85);
             border-radius: 18px;
             max-width: 490px;
@@ -1395,7 +1349,7 @@
             overflow-y: auto;
             padding: 30px 26px;
             position: relative;
-            transform: translate3d(0, 14px, 0) scale(0.95);
+            transform: translate3d(0, 12px, 0) scale(0.96);
             opacity: 0;
             transition: transform 0.28s ease, opacity 0.28s ease;
             text-align: left;
@@ -1452,15 +1406,15 @@
         .card-counter {
             text-align: center;
             font-size: 11px;
-            color: rgba(244, 168, 196, 0.6);
+            color: rgba(244, 168, 196, 0.55);
             margin-top: 16px;
         }
 
         /* MODAL URANO */
         .urano-modal-card {
-            background: #041322;
-            border: 1px solid var(--urano-cyan);
-            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85);
+            background: #04101c;
+            border: 1px solid rgba(125, 211, 252, 0.45);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
             border-radius: 20px;
             max-width: 650px;
             width: 100%;
@@ -1474,15 +1428,15 @@
         .urano-title {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: #7dd3fc;
+            color: #bae6fd;
             font-size: clamp(24px, 5vw, 30px);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             padding-right: 36px;
         }
 
         .urano-subtitle {
-            font-size: 13.5px;
-            color: #bae6fd;
+            font-size: 13px;
+            color: rgba(186, 230, 253, 0.8);
             margin-bottom: 20px;
             line-height: 1.55;
         }
@@ -1495,32 +1449,33 @@
         }
 
         .nick-chip {
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(125, 211, 252, 0.26);
             color: #f0f9ff;
             font-size: 12.5px;
             padding: 6px 12px;
             border-radius: 14px;
+            will-change: transform, opacity;
         }
 
         .btn-urano-close {
-            background: var(--urano-cyan);
-            color: #041322;
-            border: none;
+            background: rgba(125, 211, 252, 0.18);
+            color: #e0f2fe;
+            border: 1px solid rgba(125, 211, 252, 0.45);
             padding: 10px 24px;
             border-radius: 22px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             display: block;
             margin: 16px auto 0;
         }
 
-        /* MODAL SATURNO VERDE */
+        /* MODAL SATURNO */
         .saturno-modal-card {
-            background: #041a11;
-            border: 1px solid var(--saturno-sage);
-            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85);
+            background: #04140e;
+            border: 1px solid rgba(110, 231, 183, 0.45);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
             border-radius: 20px;
             max-width: 760px;
             width: 100%;
@@ -1534,15 +1489,15 @@
         .saturno-title {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: #6ee7b7;
+            color: #a7f3d0;
             font-size: clamp(24px, 5vw, 31px);
             margin-bottom: 6px;
             padding-right: 36px;
         }
 
         .saturno-subtitle {
-            font-size: 13.5px;
-            color: #a7f3d0;
+            font-size: 13px;
+            color: rgba(167, 243, 208, 0.8);
             margin-bottom: 22px;
             line-height: 1.55;
         }
@@ -1555,8 +1510,8 @@
         }
 
         .saturno-show-card {
-            background: rgba(52, 211, 153, 0.06);
-            border: 1px solid rgba(52, 211, 153, 0.3);
+            background: rgba(52, 211, 153, 0.05);
+            border: 1px solid rgba(110, 231, 183, 0.26);
             border-radius: 12px;
             overflow: hidden;
             text-decoration: none;
@@ -1564,6 +1519,7 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.2s ease, border-color 0.2s ease;
+            will-change: transform, opacity;
         }
 
         .saturno-show-card:hover {
@@ -1601,27 +1557,27 @@
         }
 
         .btn-saturno-close {
-            background: var(--saturno-sage);
-            color: #031c12;
-            border: none;
+            background: rgba(110, 231, 183, 0.18);
+            color: #ecfdf5;
+            border: 1px solid rgba(110, 231, 183, 0.45);
             padding: 10px 24px;
             border-radius: 22px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             display: block;
             margin: 14px auto 0;
         }
 
         /* ========================================================
-           REPRODUCTOR FLOTANTE CON CONTROLES COMPLETOS (SEEK + SKIP)
+           REPRODUCTOR FLOTANTE CON CONTROLES COMPLETOS
            ======================================================== */
         .spotify-widget {
             position: fixed;
-            bottom: max(58px, var(--safe-bottom));
-            right: max(14px, var(--safe-right));
-            width: min(340px, 90vw);
-            background: #120918;
+            bottom: max(18px, var(--safe-bottom));
+            right: max(16px, var(--safe-right));
+            width: min(330px, 88vw);
+            background: rgba(14, 7, 20, 0.95);
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 12px 14px;
@@ -1641,9 +1597,9 @@
 
         .spotify-mini-tab {
             position: fixed;
-            bottom: max(58px, var(--safe-bottom));
-            right: max(14px, var(--safe-right));
-            background: #1c0b24;
+            bottom: max(18px, var(--safe-bottom));
+            right: max(16px, var(--safe-right));
+            background: rgba(20, 9, 28, 0.92);
             color: #f5d0fe;
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
@@ -1651,8 +1607,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 12.5px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
             z-index: 199;
@@ -1689,7 +1645,7 @@
         }
 
         .sp-icon-btn {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.07);
             border: 1px solid rgba(255, 255, 255, 0.14);
             color: #e9d5ff;
             padding: 3px 9px;
@@ -1714,8 +1670,8 @@
 
         .sp-cover-wrapper {
             position: relative;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 8px;
             overflow: hidden;
             flex-shrink: 0;
@@ -1737,7 +1693,7 @@
             left: 0;
             width: 200px;
             height: 200px;
-            transform: scale(0.23);
+            transform: scale(0.22);
             transform-origin: top left;
             opacity: 0.01;
             pointer-events: none;
@@ -1751,7 +1707,7 @@
         }
 
         .sp-title {
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
             color: #ffffff;
             white-space: nowrap;
@@ -1768,7 +1724,6 @@
             text-overflow: ellipsis;
         }
 
-        /* Barra de progreso para adelantar/retroceder la canción */
         .sp-progress-row {
             display: flex;
             align-items: center;
@@ -1782,7 +1737,7 @@
         .sp-seek-slider {
             flex: 1;
             accent-color: var(--accent-rose);
-            height: 4px;
+            height: 3.5px;
             cursor: pointer;
         }
 
@@ -1790,7 +1745,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 9px;
             margin-bottom: 8px;
         }
 
@@ -1803,19 +1758,14 @@
             cursor: pointer;
             padding: 5px 8px;
             border-radius: 8px;
-            transition: background 0.15s ease;
-        }
-
-        .sp-ctrl-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
         }
 
         .sp-play-btn {
             background: var(--accent-rose);
             border-color: var(--accent-rose);
             color: #ffffff;
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -1828,14 +1778,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 10.5px;
+            font-size: 10px;
             color: #b8a5c7;
         }
 
         .sp-volume-slider {
             flex: 1;
             accent-color: var(--accent-soft);
-            height: 3.5px;
+            height: 3px;
             cursor: pointer;
         }
 
@@ -1893,12 +1843,12 @@
             top: 24px;
             left: 50%;
             transform: translate3d(-50%, -100px, 0);
-            background: #1f0924;
+            background: #19071e;
             border: 1px solid var(--accent-soft);
             color: white;
-            padding: 12px 24px;
-            border-radius: 26px;
-            font-size: 13.5px;
+            padding: 11px 22px;
+            border-radius: 24px;
+            font-size: 13px;
             font-weight: 500;
             box-shadow: 0 8px 30px rgba(0,0,0,0.65);
             z-index: 500;
@@ -1913,6 +1863,9 @@
     </style>
 </head>
 <body>
+
+    <!-- CAPA DE TRANSICIÓN PARA ELEMENTOS QUE VUELAN DEL PLANETA A LA TABLA -->
+    <div id="flying-transition-layer"></div>
 
     <!-- BOTÓN DISCRETO DE SONIDO AMBIENTAL -->
     <button id="sfx-mute-btn" class="sfx-mute-btn" onclick="toggleSfxMute()" title="Sonidos de ambiente">
@@ -1961,7 +1914,7 @@
                     <div class="envelope-flap"></div>
                     <div class="wax-seal" id="wax-seal-elem" title="Toca para abrir el sobre">G</div>
                 </div>
-                <div class="envelope-hint" id="envelope-hint-text">Toca el sello de lacre para abrir tu carta</div>
+                <div class="envelope-hint" id="envelope-hint-text">Toca el sello para abrir tu carta</div>
             </div>
         </div>
 
@@ -1973,7 +1926,7 @@
                 Ir a la Galaxia
             </button>
             <button class="btn-env-action btn-env-secondary" onclick="goToTableScreen()">
-                Mesa de Recuerdos
+                Nuestra Mesa
             </button>
         </div>
     </div>
@@ -2011,23 +1964,23 @@
     </div>
 
     <!-- ========================================================
-         PANTALLA 2: GALAXIA 3D (CON URANO Y SATURNO)
+         PANTALLA 2: GALAXIA 3D AESTHETIC (INTERFAZ ULTRA-LIMPIA)
          ======================================================== -->
     <div id="galaxy-screen" class="screen">
         <header class="top-nav-bar">
             <div class="galaxy-title">Para ti, Gigi</div>
             
             <div class="galaxy-top-actions">
+                <button id="btn-return-center" class="btn-return-center" onclick="returnToGalaxyCenter()">
+                    ← Galaxia
+                </button>
                 <button class="btn-planet-shortcut" onclick="handleUranoInteraction()">
                     Urano
                 </button>
                 <button class="btn-planet-shortcut btn-planet-saturno" onclick="handleSaturnoInteraction()">
                     Saturno
                 </button>
-                <button class="btn-go-table" onclick="goToTableScreen()">
-                    Mesa de Recuerdos
-                </button>
-                <button id="kitty-peek-btn" class="kitty-peek-btn" onclick="goToTableScreen()" title="Ir a la Mesa de Recuerdos">
+                <button id="kitty-peek-btn" class="kitty-peek-btn" onclick="goToTableScreen()" title="Ir a Nuestra Mesa">
                     <span class="kitty-peek-bubble">Nuestra mesa</span>
                     <svg class="kitty-peek-svg" viewBox="0 0 120 120">
                         <path d="M25 52 Q18 15 50 32 Z" fill="#ffffff" stroke="#221118" stroke-width="4"/>
@@ -2039,25 +1992,14 @@
                             <circle cx="0" cy="0" r="6" fill="#ff1744" stroke="#221118" stroke-width="3"/>
                         </g>
                         <ellipse cx="42" cy="64" rx="3.8" ry="5.5" fill="#1a0d12"/>
-                        <ellipse cx="78" cy="64" rx="3.8" ry="5.5" fill="#1a0d12"/>
+                        <ellipse cx="78" cy="64" rx="3.8" ry="3.8" fill="#1a0d12"/>
                         <ellipse cx="60" cy="71" rx="5" ry="3.6" fill="#ffcc00" stroke="#221118" stroke-width="2.5"/>
                     </svg>
                 </button>
             </div>
         </header>
 
-        <!-- HUD DE ÓRBITA PLANETARIA -->
-        <div id="planet-orbit-hud" class="planet-orbit-hud">
-            <span id="hud-planet-text" class="hud-planet-text">Órbita de Urano: mira los 20 apodos girar o toca el centro del planeta</span>
-            <button id="hud-btn-action" class="hud-btn-action" onclick="triggerActivePlanetCore()">Reunir los 100 apodos</button>
-            <button class="hud-btn-back" onclick="returnToGalaxyCenter()">Volver al centro</button>
-        </div>
-
         <canvas id="galaxy-canvas"></canvas>
-
-        <div class="galaxy-hint" id="galaxy-bottom-hint">
-            Toca las frases para leer mis cartas • Viaja a <span class="hint-badge-urano">Urano</span> (100 maneras de llamarte) o a <span class="hint-badge-saturno">Saturno</span> (para cuando lo necesites)
-        </div>
     </div>
 
     <!-- ========================================================
@@ -2067,7 +2009,7 @@
         <div class="wood-table-background"></div>
 
         <header class="wood-table-header">
-            <h2 class="wood-header-title">Nuestra Mesa de Recuerdos</h2>
+            <h2 class="wood-header-title">Nuestra Mesa</h2>
             <button class="btn-back-galaxy" onclick="backToGalaxyFromTable()">
                 Volver a la Galaxia
             </button>
@@ -2220,10 +2162,10 @@
             </button>
         </div>
 
-        <!-- 1. DETALLE LA CARTA (PROFUNDA Y CON TU HISTORIA REAL) -->
+        <!-- 1. DETALLE LA CARTA (CON EL RECUERDO DE LAS 4:30 AM) -->
         <div id="section-carta" class="section-inner-content">
             <h2 class="section-hero-title">Mi Carta Para Ti</h2>
-            <p class="section-hero-subtitle">Lo que te dije mirándote a los ojos y lo que mi corazón te promete todos los días.</p>
+            <p class="section-hero-subtitle">Lo que te dije aquella madrugada y lo que mi corazón te promete todos los días.</p>
 
             <div class="parchment-letter-card">
                 <h3>Mi botoncito hermosa,</h3>
@@ -2234,7 +2176,7 @@
                     Incluso cuando nuestros caminos se separaron por un tiempo, nunca dejaste de habitar en mí. Reencontrarnos nos demostró que lo que teníamos no era casualidad; volvimos a coincidir con más madurez, con más certeza y con un amor que ni el tiempo ni los mil trescientos kilómetros entre Chihuahua y Morelos pudieron apagar.
                 </p>
                 <p>
-                    Cuando nos vimos en persona, cuando caminamos tomados de la mano, subimos al Cerro Coronel a mirar las luces de la ciudad y nos reímos comiendo helado, supe que no quería otro destino que no fueras tú. Por eso aquel 11 de noviembre a las 4:30 de la tarde, con el corazón latiendo a mil en nuestra videollamada, te pedí que fueras oficialmente mi novia.
+                    Cuando nos vimos en persona, cuando caminamos tomados de la mano, subimos al Cerro Coronel a mirar las luces de la ciudad y nos reímos comiendo helado, supe que no quería otro destino que no fueras tú. Por eso aquel 11 de noviembre a las 4:30 de la madrugada, desvelados en nuestra videollamada como tantas veces pero con el corazón latiendo distinto, te pedí que fueras oficialmente mi novia.
                 </p>
                 <p>
                     No me importa ir despacio si es contigo. Te amo y te voy a amar hasta la luna con pasitos de tortuga: sin prisa, pero sin detenerme jamás, cuidándote, admirándote en tu carrera y construyendo el futuro donde ya no existan pantallas ni aeropuertos entre nosotros.
@@ -2272,7 +2214,7 @@
         <!-- 3. DETALLE NUESTRA HISTORIA -->
         <div id="section-historia" class="section-inner-content">
             <h2 class="section-hero-title">Nuestra Historia</h2>
-            <p class="section-hero-subtitle">De seis años de amistad a pedirte que fueras mi novia aquel 11 de noviembre a las 4:30.</p>
+            <p class="section-hero-subtitle">De seis años de amistad a pedirte que fueras mi novia aquel 11 de noviembre a las 4:30 de la madrugada.</p>
 
             <div class="parchment-letter-card" style="margin-bottom: 22px;">
                 <h3>Seis años siendo mejores amigos</h3>
@@ -2289,9 +2231,9 @@
             </div>
 
             <div class="parchment-letter-card">
-                <h3>11 de Noviembre, 4:30 PM: Hasta la luna con pasitos de tortuga</h3>
+                <h3>11 de Noviembre, 4:30 AM: Hasta la luna con pasitos de tortuga</h3>
                 <p>
-                    En aquella videollamada el 11 de noviembre a las 4:30 de la tarde, después de tantos años de historia, por fin te hice la pregunta que llevaba guardada en el pecho. Me dijiste que sí, y desde ese instante caminamos juntos, hasta la luna con pasitos de tortuga.
+                    En aquella videollamada en la madrugada del 11 de noviembre, a las 4:30 AM, después de tantos años de historia y desveladas juntos, por fin te hice la pregunta que llevaba guardada en el pecho. Me dijiste que sí, y desde ese instante caminamos juntos, hasta la luna con pasitos de tortuga.
                 </p>
             </div>
         </div>
@@ -2345,13 +2287,13 @@
             </div>
         </div>
 
-        <!-- 5. DETALLE NUESTRA FECHA (11 DE NOVIEMBRE DE 2026 A LAS 4:30 PM) -->
+        <!-- 5. DETALLE NUESTRA FECHA (11 DE NOVIEMBRE DE 2026 A LAS 4:30 AM) -->
         <div id="section-fecha" class="section-inner-content">
             <h2 class="section-hero-title">Nuestra Fecha</h2>
-            <p class="section-hero-subtitle">11 de noviembre de 2026 a las 4:30 PM • El momento exacto en que te pedí que fueras mi novia.</p>
+            <p class="section-hero-subtitle">11 de noviembre de 2026 a las 4:30 AM • El instante exacto de nuestra madrugada.</p>
 
             <div class="love-counter-box">
-                <div class="date-badge-pill">11 de Noviembre de 2026 • 4:30 PM</div>
+                <div class="date-badge-pill">11 de Noviembre de 2026 • 4:30 AM</div>
                 <h3 id="love-counter-status" style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: #f4a8c4; font-size: 24px; font-weight: 600;">
                     Tiempo desde que me dijiste que sí:
                 </h3>
@@ -2376,7 +2318,7 @@
                 </div>
 
                 <p id="love-counter-subtext" style="color: #e9d5ff; font-size: 14.5px; max-width: 560px; margin: 16px auto 0; line-height: 1.65;">
-                    Cada segundo que avanza este reloj nació en aquella videollamada a las cuatro y media de la tarde. Siete años conociéndote y toda una vida por delante caminando a tu lado.
+                    Cada segundo que avanza este reloj nació en aquella videollamada a las cuatro y media de la madrugada. Siete años conociéndote y toda una vida por delante caminando a tu lado.
                 </p>
             </div>
         </div>
@@ -2421,12 +2363,11 @@
             </div>
         </div>
 
-        <!-- 8. DETALLE SALA DE MÚSICA & PLAYLIST SPOTIFY INTEGRADA -->
+        <!-- 8. DETALLE SALA DE MÚSICA & PLAYLIST SPOTIFY -->
         <div id="section-musica" class="section-inner-content">
             <h2 class="section-hero-title">Nuestra Sala de Música</h2>
-            <p class="section-hero-subtitle">Puedes escuchar directamente nuestra playlist de Spotify aquí arriba o usar el reproductor continuo de abajo con controles para adelantar y retroceder.</p>
+            <p class="section-hero-subtitle">Escucha nuestra playlist de Spotify o selecciona cualquier canción abajo.</p>
 
-            <!-- PLAYLIST DE SPOTIFY PARA ESCUCHARSE NORMALMENTE -->
             <div class="spotify-official-embed-wrap">
                 <div class="spotify-embed-header">
                     <h4>Nuestra Playlist en Spotify</h4>
@@ -2437,7 +2378,6 @@
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3Dmza3xwpVU4pvWpBZd2Jk?utm_source=generator&si=8f3bb226d3044e47" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
 
-            <!-- FILTRO DE GÉNEROS DEL REPRODUCTOR CONTINUO -->
             <div class="music-genres-nav">
                 <button id="btn-genre-all" class="genre-pill-btn active" onclick="filterMusicGenre('all', this)">Todas (40)</button>
                 <button class="genre-pill-btn" onclick="filterMusicGenre('playlist', this)">De Nuestra Playlist</button>
@@ -2510,32 +2450,32 @@
             <button class="close-card" style="border-color: #7dd3fc; color: #7dd3fc;" onclick="closeUranoModal()">×</button>
             <div class="urano-title">Urano: 100 Maneras de Llamarte</div>
             <div class="urano-subtitle">
-                Los 20 apodos que giraban en los anillos de Urano se reunieron en el centro para desplegar los 100 nombres con los que te pienso y te llamo con cariño.
+                Cada uno de los nombres con los que te pienso y te llamo con cariño.
             </div>
 
             <div id="urano-nicknames-container" class="nicknames-chips-wrap"></div>
 
             <button class="btn-urano-close" onclick="closeUranoModal()">
-                Devolver los apodos a su órbita
+                Devolver a los anillos de Urano
             </button>
         </div>
     </div>
 
     <!-- ========================================================
-         MODAL DE SATURNO VERDE: "PARA CUANDO LO NECESITES GIGI"
+         MODAL DE SATURNO VERDE: "PARA CUANDO LO NECESITES, GIGI"
          ======================================================== -->
     <div id="saturno-modal" class="modal-overlay">
         <div class="saturno-modal-card">
             <button class="close-card" style="border-color: #6ee7b7; color: #6ee7b7;" onclick="closeSaturnoModal()">×</button>
             <div class="saturno-title">Para cuando lo necesites, Gigi</div>
             <div class="saturno-subtitle">
-                Reuní aquí las portadas que orbitaban en los anillos de Saturno. Cuando tengas un día pesado o simplemente quieras distraerte y reír un rato, toca cualquiera para ir directo a tus episodios y canales favoritos:
+                Toca cualquiera de tus series o canales favoritos para abrirlo directamente en otra pestaña:
             </div>
 
             <div id="saturno-shows-grid" class="saturno-shows-grid"></div>
 
             <button class="btn-saturno-close" onclick="closeSaturnoModal()">
-                Devolver las portadas a los anillos
+                Devolver a los anillos de Saturno
             </button>
         </div>
     </div>
@@ -2555,12 +2495,11 @@
         <div class="sp-header">
             <div class="sp-badge">Nuestra Música</div>
             <div class="sp-header-btns">
-                <button id="sp-toggle-embed-btn" class="sp-icon-btn" onclick="toggleWidgetSpotifyEmbed()">Abrir Spotify</button>
+                <button id="sp-toggle-embed-btn" class="sp-icon-btn" onclick="toggleWidgetSpotifyEmbed()">Spotify</button>
                 <button id="sp-minimize" class="sp-icon-btn" onclick="minimizeSpotifyWidget()">Ocultar</button>
             </div>
         </div>
 
-        <!-- Reproductor interno con controles de adelantar y retroceder -->
         <div id="sp-internal-player-view">
             <div class="sp-main">
                 <div class="sp-cover-wrapper">
@@ -2575,14 +2514,12 @@
                 </div>
             </div>
 
-            <!-- Barra de tiempo interactiva -->
             <div class="sp-progress-row">
                 <span id="sp-cur-time">0:00</span>
                 <input id="sp-seek-bar" type="range" class="sp-seek-slider" min="0" max="100" value="0" oninput="onSeekSliderInput(this.value)" onchange="onSeekSliderChange(this.value)">
                 <span id="sp-dur-time">0:00</span>
             </div>
 
-            <!-- Controles: Anterior | -10s | Play/Pausa | +10s | Siguiente -->
             <div class="sp-controls">
                 <button class="sp-ctrl-btn" onclick="prevTrack()" title="Canción anterior">⏮</button>
                 <button class="sp-ctrl-btn" onclick="seekRelative(-10)" title="Retroceder 10 segundos">-10s</button>
@@ -2598,7 +2535,6 @@
             </div>
         </div>
 
-        <!-- Iframe de Spotify integrado en el widget -->
         <div id="sp-embed-drawer">
             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3Dmza3xwpVU4pvWpBZd2Jk?utm_source=generator&si=8f3bb226d3044e47" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
@@ -2608,7 +2544,6 @@
         <span>Música</span>
     </button>
 
-    <!-- NOTIFICACIÓN TOAST -->
     <div id="toast-msg" class="toast-msg">Mensaje enviado a Nahim</div>
 
     <!-- ========================================================
@@ -2710,7 +2645,7 @@
             filter.frequency.setValueAtTime(1200, now);
 
             const gain = ctx.createGain();
-            gain.gain.setValueAtTime(0.28, now);
+            gain.gain.setValueAtTime(0.26, now);
             gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
 
             noise.connect(filter);
@@ -2724,12 +2659,12 @@
             if (!ctx) return;
             const now = ctx.currentTime;
 
-            const bufferSize = Math.floor(ctx.sampleRate * 0.38);
+            const bufferSize = Math.floor(ctx.sampleRate * 0.36);
             const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) {
                 const env = Math.sin((i / bufferSize) * Math.PI);
-                data[i] = (Math.random() * 2 - 1) * env * 0.16;
+                data[i] = (Math.random() * 2 - 1) * env * 0.15;
             }
             const noise = ctx.createBufferSource();
             noise.buffer = buffer;
@@ -2737,7 +2672,7 @@
             const filter = ctx.createBiquadFilter();
             filter.type = 'bandpass';
             filter.frequency.setValueAtTime(700, now);
-            filter.frequency.linearRampToValueAtTime(1750, now + 0.38);
+            filter.frequency.linearRampToValueAtTime(1700, now + 0.36);
             filter.Q.value = 1.5;
 
             noise.connect(filter);
@@ -2757,7 +2692,7 @@
             osc.frequency.exponentialRampToValueAtTime(1400, now + 0.08);
             osc.frequency.exponentialRampToValueAtTime(400, now + 0.2);
 
-            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.setValueAtTime(0.16, now);
             gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
 
             osc.connect(gain);
@@ -2776,7 +2711,7 @@
                 const gain = ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, now + i * 0.05);
-                gain.gain.setValueAtTime(0.07, now + i * 0.05);
+                gain.gain.setValueAtTime(0.06, now + i * 0.05);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.55);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
@@ -2796,20 +2731,20 @@
 
             if (!isReturn) {
                 osc1.frequency.setValueAtTime(140, now);
-                osc1.frequency.exponentialRampToValueAtTime(440, now + 1.1);
+                osc1.frequency.exponentialRampToValueAtTime(420, now + 1.0);
             } else {
-                osc1.frequency.setValueAtTime(440, now);
-                osc1.frequency.exponentialRampToValueAtTime(140, now + 0.95);
+                osc1.frequency.setValueAtTime(420, now);
+                osc1.frequency.exponentialRampToValueAtTime(140, now + 0.9);
             }
 
             gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.12, now + 0.22);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 1.15);
+            gain.gain.linearRampToValueAtTime(0.11, now + 0.2);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 1.05);
 
             osc1.connect(gain);
             gain.connect(ctx.destination);
             osc1.start(now);
-            osc1.stop(now + 1.2);
+            osc1.stop(now + 1.1);
         }
 
         function playWoodFlySound(isReturn = false) {
@@ -2822,7 +2757,7 @@
             osc.type = 'sine';
             osc.frequency.setValueAtTime(isReturn ? 460 : 240, now);
             osc.frequency.exponentialRampToValueAtTime(isReturn ? 220 : 560, now + 0.22);
-            gain.gain.setValueAtTime(0.11, now);
+            gain.gain.setValueAtTime(0.1, now);
             gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
 
             osc.connect(gain);
@@ -2848,7 +2783,6 @@
             { id: '3TXnYMT9Ju8', backups: ['Zd1Flawc1-I'], title: 'Luciérnagas', artist: 'Milo J, Silvio Rodríguez', genre: 'romanticas' },
             { id: '2yHxI4g7bsg', backups: ['WA05n3EKUQU'], title: 'Batman x Catwoman Rap', artist: 'Kronno Zomber', genre: 'romanticas' },
 
-            // Playlist Favoritas
             { id: 'JQbjS0_ZfJ0', backups: ['TGgcC5xg9YI'], title: 'San Lucas', artist: 'Kevin Kaarl', genre: 'playlist' },
             { id: 'e9dZQelULDk', backups: ['JQbjS0_ZfJ0'], title: 'Colapso', artist: 'Kevin Kaarl', genre: 'playlist' },
             { id: 'O4f58BU_Hbs', backups: ['3TXnYMT9Ju8'], title: 'Rara Vez', artist: 'Milo J, Taiu', genre: 'playlist' },
@@ -2860,7 +2794,6 @@
             { id: 'L9vB2T8N7nU', backups: ['7E9-c2Z6adU'], title: 'Fuentes de Ortiz', artist: 'Ed Maverick', genre: 'playlist' },
             { id: 'TGgcC5xg9YI', backups: ['k3zimSRKqNw'], title: 'See You Again', artist: 'Tyler, The Creator ft. Kali Uchis', genre: 'playlist' },
 
-            // NSQK
             { id: 'qXU5aM6H_yY', backups: ['8W02j8eYw3U'], title: 'Si en tu mente estuve', artist: 'NSQK', genre: 'nsqk' },
             { id: '8W02j8eYw3U', backups: ['qXU5aM6H_yY'], title: 'SÍSI', artist: 'NSQK', genre: 'nsqk' },
             { id: 'h64UoPz8s-k', backups: ['p4pB4JjFwZ8'], title: 'Árbol de Manzanas', artist: 'NSQK', genre: 'nsqk' },
@@ -2868,7 +2801,6 @@
             { id: 's2x_Pvh20J0', backups: ['0e46wSg_E3w'], title: 'Algo Bien', artist: 'NSQK', genre: 'nsqk' },
             { id: '0e46wSg_E3w', backups: ['qXU5aM6H_yY'], title: 'Bobo (ft. Álvaro Díaz)', artist: 'NSQK', genre: 'nsqk' },
 
-            // WOS
             { id: 'G3gE5Y_4uVo', backups: ['iW2yYy4mQ20'], title: 'Melón Vino', artist: 'WOS', genre: 'wos' },
             { id: 'iW2yYy4mQ20', backups: ['G3gE5Y_4uVo'], title: 'Arrancármelo', artist: 'WOS', genre: 'wos' },
             { id: 'Hmc2UKFNGzM', backups: ['c3aN6Tv4WLA', 'gWzjjbp_V64'], title: 'Alma Dinamita', artist: 'WOS', genre: 'wos' },
@@ -2876,7 +2808,6 @@
             { id: 'vR7JbKqPZ3s', backups: ['G3gE5Y_4uVo'], title: 'Terraza', artist: 'WOS', genre: 'wos' },
             { id: 'hZ4W7s4k-wY', backups: ['iW2yYy4mQ20'], title: 'Canguro', artist: 'WOS', genre: 'wos' },
 
-            // TRUENO
             { id: 'wfWIs2gFTAM', backups: ['e9mPqJ0G6m0'], title: 'Mamichula', artist: 'Trueno, Nicki Nicole', genre: 'trueno' },
             { id: 'e9mPqJ0G6m0', backups: ['wfWIs2gFTAM'], title: 'Feel Me??', artist: 'Trueno', genre: 'trueno' },
             { id: '_b6gPz1N39U', backups: ['wfWIs2gFTAM'], title: 'Solo Por Vos', artist: 'Trueno', genre: 'trueno' },
@@ -2921,12 +2852,12 @@
             const isOpen = drawer.classList.toggle('open');
             if (isOpen) {
                 internalView.style.display = 'none';
-                btn.textContent = 'Usar Reproductor';
+                btn.textContent = 'Reproductor';
                 btn.classList.add('active-mode');
                 if (ytReady && ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo();
             } else {
                 internalView.style.display = 'block';
-                btn.textContent = 'Abrir Spotify';
+                btn.textContent = 'Spotify';
                 btn.classList.remove('active-mode');
             }
         }
@@ -3007,7 +2938,6 @@
             });
         };
 
-        // Actualización continua de la barra de tiempo de la canción
         setInterval(() => {
             if (!ytReady || !ytPlayer || !isPlayingMusic || isDraggingSeekBar) return;
             if (typeof ytPlayer.getCurrentTime === 'function' && typeof ytPlayer.getDuration === 'function') {
@@ -3177,22 +3107,22 @@
             const envelope = document.getElementById('envelope-elem');
             if (!envelope || typeof gsap === 'undefined') return;
 
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 16; i++) {
                 const spark = document.createElement('div');
                 spark.className = 'seal-spark';
                 spark.style.left = '50%';
                 spark.style.top = '55%';
                 envelope.appendChild(spark);
 
-                const angle = (Math.PI * 2 * i) / 18;
-                const dist = 40 + Math.random() * 65;
+                const angle = (Math.PI * 2 * i) / 16;
+                const dist = 40 + Math.random() * 60;
 
                 gsap.to(spark, {
                     x: Math.cos(angle) * dist,
                     y: Math.sin(angle) * dist,
                     scale: 0,
                     opacity: 0,
-                    duration: 0.5,
+                    duration: 0.48,
                     ease: "power2.out",
                     onComplete: () => spark.remove()
                 });
@@ -3229,7 +3159,7 @@
 
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 50,
+                    particleCount: 45,
                     spread: 70,
                     origin: { y: 0.6 },
                     colors: ['#e63973', '#f4a8c4', '#ffd580', '#ffffff']
@@ -3336,7 +3266,7 @@
         }
 
         /* =========================================================
-           4. MESA DE RECUERDOS: ANIMACIÓN ULTRALIGERA SIN TRABAS
+           4. MESA DE RECUERDOS: ANIMACIÓN ULTRALIGERA
            ========================================================= */
         let lastClickedTableItem = null;
         let lastFlyOffset = { x: 0, y: 0 };
@@ -3357,8 +3287,8 @@
                 gsap.to(clickedElem, {
                     x: centerX,
                     y: centerY,
-                    scale: 1.45,
-                    duration: 0.34,
+                    scale: 1.42,
+                    duration: 0.32,
                     ease: "power2.out",
                     overwrite: true,
                     onComplete: () => {
@@ -3391,13 +3321,13 @@
                 gsap.killTweensOf(elem);
 
                 gsap.fromTo(elem,
-                    { x: lastFlyOffset.x * 0.6, y: lastFlyOffset.y * 0.6, scale: 1.3 },
+                    { x: lastFlyOffset.x * 0.55, y: lastFlyOffset.y * 0.55, scale: 1.25 },
                     {
                         x: 0,
                         y: 0,
                         scale: 1,
-                        duration: 0.45,
-                        ease: "back.out(1.5)",
+                        duration: 0.42,
+                        ease: "back.out(1.4)",
                         overwrite: true,
                         onComplete: () => {
                             elem.style.zIndex = '';
@@ -3408,7 +3338,7 @@
         }
 
         /* =========================================================
-           5. 100 RAZONES POR LAS QUE TE AMO (SIN EMOJIS ARTIFICIALES)
+           5. 100 RAZONES POR LAS QUE TE AMO
            ========================================================= */
         const razones = [
             "Tu sonrisa que ilumina cualquier día gris", "Tus ojos en los que veo todo mi mundo", "Tu risa contagiosa que me llena el alma", "Tu corazón tan noble y sincero",
@@ -3424,12 +3354,12 @@
             "Cómo cantamos juntos a todo pulmón", "Cómo nos reímos de las cosas más simples", "Cómo me motivas a ser mejor persona", "Cómo disfrutas comer helado conmigo",
             "Cómo me llenaste la cara de besos", "Cómo te ves cuando sonríes frente a la cámara", "Cómo te quedan los lentes", "Tu cabello precioso",
             "Tus ocurrencias de madrugada", "Tu empatía con quienes quieres", "Tu confianza en mí", "Tu forma de calmarme cuando tengo un mal día",
-            "Tus mensajes de buenos días", "Quedarnos hablando por la noche", "Haber sido mi mejor amiga durante casi siete años", "Nuestras fotos frente al espejo",
+            "Tus mensajes de buenos días", "Quedarnos hablando hasta las 4:30 AM", "Haber sido mi mejor amiga durante casi siete años", "Nuestras fotos frente al espejo",
             "Haber subido juntos al Cerro Coronel", "Nuestros paseos tranquilos", "Tu valentía el día de la foto con la serpiente", "Cómo cuidamos lo nuestro contra la distancia",
             "Cómo sabemos perdonarnos y crecer", "Tu nobleza de espíritu", "Tu carisma que ilumina cualquier lugar", "Tus gestos tímidos que me encantan",
             "La paz que sentí cuando te abracé en persona", "Haber vuelto a coincidir más fuertes que antes", "Porque eres mi lugar seguro", "Porque eres mi mayor orgullo",
             "Porque contigo las horas parecen minutos", "Porque cruzaría los 1,300 kilómetros siempre por ti", "Porque haces que cada espera valga la pena", "Porque cada día te quiero mejor que ayer",
-            "Por los años de amistad que nos formaron", "Por aquel 11 de noviembre a las 4:30 de la tarde", "Por el futuro que vamos a construir juntos", "Por cada foto que guardamos como tesoro",
+            "Por los años de amistad que nos formaron", "Por aquel 11 de noviembre a las 4:30 de la madrugada", "Por el futuro que vamos a construir juntos", "Por cada foto que guardamos como tesoro",
             "Por ser mi calma en medio de todo", "Por ser mi inspiración diaria", "Por caminar conmigo con pasitos de tortuga", "Por existir en este mismo tiempo",
             "Por elegirme todos los días a mí", "Por ser mi botoncito hermosa", "Por tus abrazos fuertes antes de cada viaje", "Por cómo me miras fijamente",
             "Por cómo te preocupas por mí", "Por tus pucheros tiernos que me hacen sonreír", "Por haber llegado juntos a los veinte", "Por todas las partidas que jugamos juntos",
@@ -3463,11 +3393,11 @@
         }
 
         /* =========================================================
-           6. CONTADOR NUESTRA FECHA: 11 DE NOVIEMBRE DE 2026 A LAS 4:30 PM
+           6. CONTADOR NUESTRA FECHA: 11 DE NOVIEMBRE DE 2026 A LAS 4:30 AM
            ========================================================= */
         function updateLoveCounter() {
-            // 11 de Noviembre de 2026 a las 16:30 (4:30 PM)
-            const targetDate = new Date('2026-11-11T16:30:00');
+            // 11 de Noviembre de 2026 a las 04:30 AM
+            const targetDate = new Date('2026-11-11T04:30:00');
             const now = new Date();
             const diff = now - targetDate;
 
@@ -3494,9 +3424,9 @@
 
             if (elStatus) {
                 if (isNegative) {
-                    elStatus.textContent = "Cuenta regresiva para el 11 de noviembre a las 4:30 PM:";
+                    elStatus.textContent = "Cuenta regresiva para el 11 de noviembre a las 4:30 AM:";
                 } else {
-                    elStatus.textContent = "Tiempo juntos como novios desde el 11 de noviembre a las 4:30 PM:";
+                    elStatus.textContent = "Tiempo juntos como novios desde el 11 de noviembre a las 4:30 AM:";
                 }
             }
         }
@@ -3558,13 +3488,13 @@
         }
 
         /* =========================================================
-           8. LAS 8 CARTAS SECRETAS DE LA GALAXIA (PROFUNDAS Y REALES)
+           8. LAS 8 CARTAS SECRETAS DE LA GALAXIA (4:30 AM)
            ========================================================= */
         const letters = [
             {
-                title: "Aquel 11 de noviembre a las 4:30,",
-                text: "Todavía recuerdo los nervios y la emoción que sentía frente a la pantalla ese 11 de noviembre a las cuatro y media de la tarde. Después de casi siete años conociéndote, mirarte en esa videollamada y pedirte que fueras mi novia fue una de las decisiones más felices de toda mi vida.\n\nGracias por decirme que sí, mi botoncito.",
-                sign: "Tuyo desde ese instante, Nahim"
+                title: "Aquella madrugada a las 4:30 AM,",
+                text: "Todavía recuerdo los nervios y la emoción que sentía frente a la pantalla en la madrugada del 11 de noviembre, cuando el reloj marcaba las 4:30 AM. Después de casi siete años conociéndote y tantas desveladas juntos, mirarte en esa videollamada y pedirte que fueras mi novia fue una de las decisiones más felices de toda mi vida.\n\nGracias por decirme que sí, mi botoncito.",
+                sign: "Tuyo desde aquella madrugada, Nahim"
             },
             {
                 title: "Hasta la luna con pasitos de tortuga,",
@@ -3573,7 +3503,7 @@
             },
             {
                 title: "Seis años siendo mejores amigos,",
-                text: "Muy pocas parejas tienen la fortuna de haberse conocido como nosotros: seis o siete años siendo cómplices, riéndonos en llamadas, jugando partidas interminables y contándonos la vida entera sin filtros.\n\nAntes de ser el amor de mi vida ya eras mi mejor amiga, y esa es la base más bonita que podríamos tener.",
+                text: "Muy pocas parejas tienen la fortuna de haberse conocido como nosotros: seis o siete años siendo cómplices, riéndonos en llamadas hasta el amanecer, jugando partidas interminables y contándonos la vida entera sin filtros.\n\nAntes de ser el amor de mi vida ya eras mi mejor amiga, y esa es la base más bonita que podríamos tener.",
                 sign: "Tu compañero de siempre"
             },
             {
@@ -3633,7 +3563,8 @@
         });
 
         /* =========================================================
-           9. URANO (100 APODOS) Y SATURNO VERDE (9 SERIES/CANALES)
+           9. URANO (100 APODOS) Y SATURNO (9 SERIES/CANALES)
+              + COREOGRAFÍA DE VUELO DEL PLANETA A LA TABLA
            ========================================================= */
         const uranoNicknames = [
             "Mi niña", "Preciosa", "Guapa", "Mi amor", "Botoncito",
@@ -3802,23 +3733,131 @@
             container.appendChild(frag);
         }
 
-        function openUranoModal() {
+        // Proyección de coordenada 3D de un planeta a coordenada 2D de la pantalla
+        function getPlanetScreenXY(worldVec3) {
+            if (!gCamera) return { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            const v = worldVec3.clone().project(gCamera);
+            return {
+                x: (v.x * 0.5 + 0.5) * window.innerWidth,
+                y: (-(v.y * 0.5) + 0.5) * window.innerHeight
+            };
+        }
+
+        // Animación FLIP limpia: los 20 apodos salen desde encima del planeta Urano hacia sus lugares en la tabla
+        function openUranoModalFromPlanetCenter() {
             renderUranoNicknames();
-            document.getElementById('urano-modal').classList.add('open');
+            const modal = document.getElementById('urano-modal');
+            modal.classList.add('open');
+
+            const origin = getPlanetScreenXY(new THREE.Vector3(38, 12, -26));
+            const chips = Array.from(document.querySelectorAll('#urano-nicknames-container .nick-chip'));
+            const layer = document.getElementById('flying-transition-layer');
+            layer.innerHTML = '';
+
+            // Ocultamos temporalmente los primeros 20 chips mientras sus clones vuelan desde el planeta a su lugar exacto
+            const first20 = chips.slice(0, 20);
+            const rest80 = chips.slice(20);
+
+            first20.forEach(c => { c.style.opacity = '0'; });
+            gsap.fromTo(rest80,
+                { opacity: 0, scale: 0.85 },
+                { opacity: 1, scale: 1, duration: 0.45, delay: 0.32, stagger: 0.004, ease: "power2.out" }
+            );
+
+            requestAnimationFrame(() => {
+                first20.forEach((targetChip, idx) => {
+                    const rect = targetChip.getBoundingClientRect();
+                    const clone = document.createElement('div');
+                    clone.className = 'flying-clone-chip';
+                    clone.textContent = targetChip.textContent;
+                    layer.appendChild(clone);
+
+                    const startX = origin.x - rect.width / 2 + (Math.random() - 0.5) * 24;
+                    const startY = origin.y - rect.height / 2 + (Math.random() - 0.5) * 24;
+
+                    gsap.fromTo(clone,
+                        { x: startX, y: startY, scale: 0.65, opacity: 0.95 },
+                        {
+                            x: rect.left,
+                            y: rect.top,
+                            scale: 1,
+                            opacity: 1,
+                            duration: 0.55,
+                            delay: idx * 0.014,
+                            ease: "power3.out",
+                            onComplete: () => {
+                                targetChip.style.opacity = '1';
+                                clone.remove();
+                            }
+                        }
+                    );
+                });
+            });
         }
 
         function closeUranoModal() {
             document.getElementById('urano-modal').classList.remove('open');
+            document.getElementById('flying-transition-layer').innerHTML = '';
             expandUranoRingsBack();
         }
 
-        function openSaturnoModal() {
+        // Animación FLIP limpia: las 9 portadas superpuestas al centro de Saturno vuelan directamente a su lugar en la tabla
+        function openSaturnoModalFromPlanetCenter() {
             renderSaturnoShowsModal();
-            document.getElementById('saturno-modal').classList.add('open');
+            const modal = document.getElementById('saturno-modal');
+            modal.classList.add('open');
+
+            const origin = getPlanetScreenXY(new THREE.Vector3(-38, 14, -24));
+            const cards = Array.from(document.querySelectorAll('#saturno-shows-grid .saturno-show-card'));
+            const layer = document.getElementById('flying-transition-layer');
+            layer.innerHTML = '';
+
+            cards.forEach(c => { c.style.opacity = '0'; });
+
+            requestAnimationFrame(() => {
+                cards.forEach((targetCard, idx) => {
+                    const rect = targetCard.getBoundingClientRect();
+                    const imgEl = targetCard.querySelector('img');
+                    const clone = document.createElement('div');
+                    clone.className = 'flying-clone-poster';
+                    clone.innerHTML = `<img src="${imgEl ? imgEl.src : ''}" alt="">`;
+                    layer.appendChild(clone);
+
+                    const startSize = 86;
+                    const startX = origin.x - startSize / 2 + (idx - 4) * 4;
+                    const startY = origin.y - startSize / 2 + (idx - 4) * 3;
+
+                    gsap.fromTo(clone,
+                        {
+                            x: startX,
+                            y: startY,
+                            width: startSize,
+                            height: startSize,
+                            opacity: 1,
+                            scale: 0.9
+                        },
+                        {
+                            x: rect.left,
+                            y: rect.top,
+                            width: rect.width,
+                            height: rect.height,
+                            scale: 1,
+                            duration: 0.58,
+                            delay: idx * 0.035,
+                            ease: "power3.inOut",
+                            onComplete: () => {
+                                targetCard.style.opacity = '1';
+                                clone.remove();
+                            }
+                        }
+                    );
+                });
+            });
         }
 
         function closeSaturnoModal() {
             document.getElementById('saturno-modal').classList.remove('open');
+            document.getElementById('flying-transition-layer').innerHTML = '';
             expandSaturnoRingsBack();
         }
 
@@ -3850,7 +3889,7 @@
         }
 
         /* =========================================================
-           11. TEXTURAS THREE.JS PRE-RENDERIZADAS
+           11. TEXTURAS REALISTAS DE PLANETAS, ANILLOS Y ETIQUETAS
            ========================================================= */
         function drawRoundedRect(ctx, x, y, w, h, r) {
             ctx.beginPath();
@@ -3862,21 +3901,145 @@
             ctx.closePath();
         }
 
+        // Etiquetas con auto-ajuste para que NUNCA se corten de los lados
         function createTextTexture(text, glowColor = '#e63973') {
             const canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 110;
+            canvas.width = 768;
+            canvas.height = 120;
             const ctx = canvas.getContext('2d');
 
-            ctx.font = '600 32px "Plus Jakarta Sans", -apple-system, sans-serif';
+            let fontSize = 32;
+            ctx.font = `600 ${fontSize}px "Plus Jakarta Sans", -apple-system, sans-serif`;
+            while (ctx.measureText(text).width > 710 && fontSize > 18) {
+                fontSize -= 2;
+                ctx.font = `600 ${fontSize}px "Plus Jakarta Sans", -apple-system, sans-serif`;
+            }
+
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-
             ctx.shadowColor = glowColor;
             ctx.shadowBlur = 14;
             ctx.fillStyle = '#ffffff';
-            ctx.fillText(text, 256, 55);
+            ctx.fillText(text, 384, 60);
 
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Textura atmosférica realista con bandas gaseosas para Urano y Saturno
+        function createRealisticPlanetTexture(type) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+
+            const grad = ctx.createLinearGradient(0, 0, 0, 256);
+            if (type === 'urano') {
+                grad.addColorStop(0.00, '#0c4a6e');
+                grad.addColorStop(0.18, '#0284c7');
+                grad.addColorStop(0.35, '#38bdf8');
+                grad.addColorStop(0.50, '#bae6fd');
+                grad.addColorStop(0.65, '#38bdf8');
+                grad.addColorStop(0.82, '#0369a1');
+                grad.addColorStop(1.00, '#082f49');
+            } else {
+                // Saturno Verde Esmeralda / Jade con bandas atmosféricas
+                grad.addColorStop(0.00, '#064e3b');
+                grad.addColorStop(0.16, '#047857');
+                grad.addColorStop(0.32, '#10b981');
+                grad.addColorStop(0.45, '#6ee7b7');
+                grad.addColorStop(0.54, '#a7f3d0');
+                grad.addColorStop(0.66, '#34d399');
+                grad.addColorStop(0.82, '#059669');
+                grad.addColorStop(1.00, '#022c22');
+            }
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 512, 256);
+
+            // Bandas de nubes y vórtices sutiles
+            for (let y = 0; y < 256; y += 3) {
+                const alpha = 0.04 + Math.sin(y * 0.18) * 0.03;
+                ctx.fillStyle = y % 6 === 0 ? `rgba(255,255,255,${alpha})` : `rgba(0,0,0,${alpha * 0.8})`;
+                ctx.fillRect(0, y, 512, 2);
+            }
+
+            // Tormentas ovaladas suaves en la atmósfera
+            for (let i = 0; i < 18; i++) {
+                const x = Math.random() * 512;
+                const y = 30 + Math.random() * 196;
+                const rx = 18 + Math.random() * 45;
+                const ry = 3 + Math.random() * 7;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+                ctx.beginPath();
+                ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Textura radial de alta definición para los anillos planetarios (con división Cassini y múltiples surcos)
+        function createRealisticRingTexture(type) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            const cx = 256, cy = 256;
+
+            const grad = ctx.createRadialGradient(cx, cy, 90, cx, cy, 250);
+            if (type === 'urano') {
+                grad.addColorStop(0.00, 'rgba(125, 211, 252, 0)');
+                grad.addColorStop(0.10, 'rgba(125, 211, 252, 0.18)');
+                grad.addColorStop(0.24, 'rgba(186, 230, 253, 0.52)');
+                grad.addColorStop(0.36, 'rgba(56, 189, 248, 0.12)');
+                grad.addColorStop(0.45, 'rgba(14, 165, 233, 0.03)'); // División Cassini
+                grad.addColorStop(0.54, 'rgba(125, 211, 252, 0.45)');
+                grad.addColorStop(0.74, 'rgba(224, 242, 254, 0.62)');
+                grad.addColorStop(0.90, 'rgba(56, 189, 248, 0.22)');
+                grad.addColorStop(1.00, 'rgba(56, 189, 248, 0)');
+            } else {
+                grad.addColorStop(0.00, 'rgba(110, 231, 183, 0)');
+                grad.addColorStop(0.08, 'rgba(52, 211, 153, 0.22)');
+                grad.addColorStop(0.25, 'rgba(167, 243, 208, 0.60)');
+                grad.addColorStop(0.40, 'rgba(16, 185, 129, 0.45)');
+                grad.addColorStop(0.48, 'rgba(6, 78, 59, 0.04)'); // División Cassini
+                grad.addColorStop(0.56, 'rgba(110, 231, 183, 0.55)');
+                grad.addColorStop(0.76, 'rgba(209, 250, 229, 0.68)');
+                grad.addColorStop(0.92, 'rgba(52, 211, 153, 0.24)');
+                grad.addColorStop(1.00, 'rgba(52, 211, 153, 0)');
+            }
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, 252, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Micro-surcos concéntricos realistas
+            ctx.lineWidth = 1;
+            for (let r = 98; r < 246; r += 3.5) {
+                if (r > 160 && r < 172) continue;
+                ctx.strokeStyle = r % 7 < 3
+                    ? 'rgba(255, 255, 255, 0.14)'
+                    : 'rgba(0, 0, 0, 0.16)';
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Halo atmosférico suave alrededor del planeta
+        function createAtmosphereHaloTexture(colorHex) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            const grad = ctx.createRadialGradient(128, 128, 50, 128, 128, 124);
+            grad.addColorStop(0, colorHex);
+            grad.addColorStop(0.55, colorHex + '44');
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 256, 256);
             return new THREE.CanvasTexture(canvas);
         }
 
@@ -3902,18 +4065,18 @@
                     ctx.fillRect(10, 10, 236, 236);
                 }
 
-                ctx.fillStyle = 'rgba(4, 24, 14, 0.86)';
-                ctx.fillRect(10, 190, 236, 56);
+                ctx.fillStyle = 'rgba(4, 20, 13, 0.88)';
+                ctx.fillRect(10, 192, 236, 54);
 
-                ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
-                ctx.fillStyle = '#a7f3d0';
+                ctx.font = 'bold 19px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#d1fae5';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(item.label, 128, 218);
+                ctx.fillText(item.label, 128, 219);
                 ctx.restore();
 
-                ctx.strokeStyle = '#34d399';
-                ctx.lineWidth = 6;
+                ctx.strokeStyle = 'rgba(110, 231, 183, 0.85)';
+                ctx.lineWidth = 5;
                 drawRoundedRect(ctx, 10, 10, 236, 236, 28);
                 ctx.stroke();
             };
@@ -4035,8 +4198,72 @@
             return new THREE.CanvasTexture(canvas);
         }
 
+        // Constructor de telaraña sutil 3D que conecta puntos de la galaxia
+        function createSubtleGalaxyWebs(targetGroup, anchorPoints) {
+            const webMat = new THREE.LineBasicMaterial({
+                color: 0xfde8f3,
+                transparent: true,
+                opacity: 0.15,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const curvePoints = [];
+            const addWebThread = (pA, pB, sag = 0.7) => {
+                const mid = new THREE.Vector3().addVectors(pA, pB).multiplyScalar(0.5);
+                mid.y -= sag;
+                mid.multiplyScalar(0.94);
+                const curve = new THREE.QuadraticBezierCurve3(pA, mid, pB);
+                const pts = curve.getPoints(14);
+                for (let i = 0; i < pts.length - 1; i++) {
+                    curvePoints.push(pts[i], pts[i + 1]);
+                }
+            };
+
+            const center = new THREE.Vector3(0, 1.4, 0);
+
+            // Hilos radiales leves desde el corazón central hacia algunos nodos y conexiones entre vecinos cercanos
+            anchorPoints.forEach((pt, idx) => {
+                if (idx % 2 === 0) {
+                    addWebThread(center, pt, 0.5);
+                }
+                const nextPt = anchorPoints[(idx + 1) % anchorPoints.length];
+                if (pt.distanceTo(nextPt) < 18) {
+                    addWebThread(pt, nextPt, 0.45);
+                }
+            });
+
+            // Dos pequeños telares geométricos sutiles cerca de los personajes de Spiderman
+            [new THREE.Vector3(11, 1.0, -6), new THREE.Vector3(-14, 0.8, 10)].forEach((hub) => {
+                const spokes = 6;
+                const spokeDirs = [];
+                for (let s = 0; s < spokes; s++) {
+                    const a = (s / spokes) * Math.PI * 2;
+                    const end = new THREE.Vector3(
+                        hub.x + Math.cos(a) * 3.8,
+                        hub.y + Math.sin(a) * 0.6,
+                        hub.z + Math.sin(a) * 3.8
+                    );
+                    spokeDirs.push(end);
+                    addWebThread(hub, end, 0.08);
+                }
+                for (let ring = 1; ring <= 3; ring++) {
+                    const f = ring / 3;
+                    for (let s = 0; s < spokes; s++) {
+                        const p1 = new THREE.Vector3().lerpVectors(hub, spokeDirs[s], f);
+                        const p2 = new THREE.Vector3().lerpVectors(hub, spokeDirs[(s + 1) % spokes], f);
+                        addWebThread(p1, p2, 0.05);
+                    }
+                }
+            });
+
+            const webGeo = new THREE.BufferGeometry().setFromPoints(curvePoints);
+            const webLines = new THREE.LineSegments(webGeo, webMat);
+            targetGroup.add(webLines);
+        }
+
         /* =========================================================
-           12. GALAXIA 3D CON URANO Y SATURNO (OPTIMIZADA A 60 FPS)
+           12. GALAXIA 3D CON PLANETAS REALISTAS Y TRANSICIÓN FLIP
            ========================================================= */
         let galaxyInitialized = false;
         let isGalaxyRenderActive = false;
@@ -4049,14 +4276,7 @@
         let isCameraTransitioning = false;
 
         let gUranoNicks = [];
-        let gUranoBeamMat = null;
-        let gUranoShockwaveMesh = null;
-        let gUranoShockwaveMat = null;
-
         let gSaturnoPosters = [];
-        let gSaturnoBeamMat = null;
-        let gSaturnoShockwaveMesh = null;
-        let gSaturnoShockwaveMat = null;
 
         function setGalaxyRenderActive(active) {
             isGalaxyRenderActive = active;
@@ -4076,30 +4296,13 @@
             }
         });
 
-        function updateOrbitHud() {
-            const hud = document.getElementById('planet-orbit-hud');
-            const text = document.getElementById('hud-planet-text');
-            const btn = document.getElementById('hud-btn-action');
-
-            if (currentCameraZone === 'urano') {
-                hud.classList.remove('saturno-theme');
-                hud.classList.add('visible');
-                text.textContent = "Estás en Urano: mira los 20 apodos girar en sus anillos o toca el planeta en el centro";
-                btn.textContent = "Reunir los 100 apodos";
-            } else if (currentCameraZone === 'saturno') {
-                hud.classList.add('saturno-theme', 'visible');
-                text.textContent = "Estás en Saturno: toca cualquier portada para abrir su enlace o toca el planeta en el centro";
-                btn.textContent = "Para cuando lo necesites, Gigi";
+        function updateReturnCenterButton() {
+            const btn = document.getElementById('btn-return-center');
+            if (!btn) return;
+            if (currentCameraZone === 'urano' || currentCameraZone === 'saturno') {
+                btn.classList.add('visible');
             } else {
-                hud.classList.remove('visible', 'saturno-theme');
-            }
-        }
-
-        function triggerActivePlanetCore() {
-            if (currentCameraZone === 'urano') {
-                collapseUranoRingsAndOpenModal();
-            } else if (currentCameraZone === 'saturno') {
-                collapseSaturnoRingsAndOpenModal();
+                btn.classList.remove('visible');
             }
         }
 
@@ -4117,12 +4320,12 @@
             isCameraTransitioning = true;
             currentCameraZone = 'urano';
             playPlanetWarpSound(false);
-            updateOrbitHud();
+            updateReturnCenterButton();
 
             gsap.to(gCamera.position, {
                 x: 38,
-                y: 17.5,
-                z: -9.5,
+                y: 16.5,
+                z: -8.5,
                 duration: 1.35,
                 ease: "power3.inOut"
             });
@@ -4139,69 +4342,63 @@
             });
         }
 
+        // Los 20 apodos se juntan superponiéndose frente al planeta Urano (sin rayo) y luego vuelan a su lugar en la tabla
         function collapseUranoRingsAndOpenModal() {
             if (isCameraTransitioning) return;
             isCameraTransitioning = true;
             playStarChimeSound();
 
+            gUranoNicks.forEach(item => {
+                item.sprite.material.depthTest = false;
+                item.sprite.renderOrder = 50;
+            });
+
+            const animProgress = { p: 0 };
+            gsap.to(animProgress, {
+                p: 1,
+                duration: 0.72,
+                ease: "power3.inOut",
+                onUpdate: () => {
+                    const inv = 1 - animProgress.p;
+                    const angleShift = animProgress.p * Math.PI * 1.4;
+                    gUranoNicks.forEach((item, idx) => {
+                        const r = item.baseRadius * inv + 0.35;
+                        const a = item.baseAngle + angleShift;
+                        const zFront = animProgress.p * (2.6 + (idx % 4) * 0.15);
+                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, zFront);
+                        item.sprite.scale.set(
+                            item.baseScaleX * (0.45 + 0.55 * inv),
+                            item.baseScaleY * (0.45 + 0.55 * inv),
+                            1
+                        );
+                    });
+                },
+                onComplete: () => {
+                    isCameraTransitioning = false;
+                    openUranoModalFromPlanetCenter();
+                }
+            });
+        }
+
+        function expandUranoRingsBack() {
             const animProgress = { p: 0 };
             gsap.to(animProgress, {
                 p: 1,
                 duration: 0.85,
-                ease: "power2.in",
-                onUpdate: () => {
-                    const inv = 1 - animProgress.p;
-                    const angleShift = animProgress.p * Math.PI * 2.5;
-                    gUranoNicks.forEach((item) => {
-                        const r = item.baseRadius * inv + 0.15;
-                        const a = item.baseAngle + angleShift;
-                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, 0);
-                        item.sprite.scale.set(item.baseScaleX * inv + 0.1, item.baseScaleY * inv + 0.1, 1);
-                    });
-                }
-            });
-
-            if (gUranoBeamMat) {
-                gsap.fromTo(gUranoBeamMat,
-                    { opacity: 0 },
-                    {
-                        opacity: 0.85,
-                        duration: 0.4,
-                        delay: 0.55,
-                        yoyo: true,
-                        repeat: 1,
-                        onComplete: () => { gUranoBeamMat.opacity = 0; }
-                    }
-                );
-            }
-
-            setTimeout(() => {
-                isCameraTransitioning = false;
-                openUranoModal();
-            }, 880);
-        }
-
-        function expandUranoRingsBack() {
-            if (gUranoShockwaveMesh && gUranoShockwaveMat) {
-                gUranoShockwaveMesh.scale.set(0.2, 0.2, 1);
-                gUranoShockwaveMat.opacity = 0.9;
-                gsap.to(gUranoShockwaveMesh.scale, { x: 3.4, y: 3.4, duration: 0.75, ease: "power2.out" });
-                gsap.to(gUranoShockwaveMat, { opacity: 0, duration: 0.75, ease: "power2.out" });
-            }
-
-            const animProgress = { p: 0 };
-            gsap.to(animProgress, {
-                p: 1,
-                duration: 0.9,
-                ease: "back.out(1.4)",
+                ease: "back.out(1.3)",
                 onUpdate: () => {
                     const p = animProgress.p;
-                    const angleShift = (1 - p) * Math.PI * 1.5;
+                    const angleShift = (1 - p) * Math.PI;
                     gUranoNicks.forEach((item) => {
                         const r = item.baseRadius * p;
                         const a = item.baseAngle - angleShift;
-                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, 0);
-                        item.sprite.scale.set(item.baseScaleX * p, item.baseScaleY * p, 1);
+                        const zFront = (1 - p) * 2.5;
+                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, zFront);
+                        item.sprite.scale.set(
+                            item.baseScaleX * (0.45 + 0.55 * p),
+                            item.baseScaleY * (0.45 + 0.55 * p),
+                            1
+                        );
                     });
                 }
             });
@@ -4221,12 +4418,12 @@
             isCameraTransitioning = true;
             currentCameraZone = 'saturno';
             playPlanetWarpSound(false);
-            updateOrbitHud();
+            updateReturnCenterButton();
 
             gsap.to(gCamera.position, {
                 x: -38,
-                y: 20,
-                z: -6.5,
+                y: 19,
+                z: -5.5,
                 duration: 1.35,
                 ease: "power3.inOut"
             });
@@ -4243,70 +4440,56 @@
             });
         }
 
+        // Las 9 portadas se juntan superponiéndose sobre el centro de Saturno y desde ahí se reparten a sus lugares en la tabla
         function collapseSaturnoRingsAndOpenModal() {
             if (isCameraTransitioning) return;
             isCameraTransitioning = true;
             playStarChimeSound();
 
+            gSaturnoPosters.forEach((item, idx) => {
+                item.sprite.material.depthTest = false;
+                item.sprite.renderOrder = 60 + idx;
+            });
+
+            const animProgress = { p: 0 };
+            gsap.to(animProgress, {
+                p: 1,
+                duration: 0.72,
+                ease: "power3.inOut",
+                onUpdate: () => {
+                    const inv = 1 - animProgress.p;
+                    const angleShift = animProgress.p * Math.PI * 1.25;
+                    gSaturnoPosters.forEach((item, idx) => {
+                        const r = item.baseRadius * inv + 0.28;
+                        const a = item.baseAngle + angleShift;
+                        const zFront = animProgress.p * (2.8 + idx * 0.08);
+                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, zFront);
+                        const s = 3.2 * (0.55 + 0.45 * inv);
+                        item.sprite.scale.set(s, s, 1);
+                    });
+                },
+                onComplete: () => {
+                    isCameraTransitioning = false;
+                    openSaturnoModalFromPlanetCenter();
+                }
+            });
+        }
+
+        function expandSaturnoRingsBack() {
             const animProgress = { p: 0 };
             gsap.to(animProgress, {
                 p: 1,
                 duration: 0.85,
-                ease: "power2.in",
-                onUpdate: () => {
-                    const inv = 1 - animProgress.p;
-                    const angleShift = animProgress.p * Math.PI * 2.2;
-                    gSaturnoPosters.forEach((item) => {
-                        const r = item.baseRadius * inv + 0.15;
-                        const a = item.baseAngle + angleShift;
-                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, 0);
-                        const s = 3.2 * inv + 0.15;
-                        item.sprite.scale.set(s, s, 1);
-                    });
-                }
-            });
-
-            if (gSaturnoBeamMat) {
-                gsap.fromTo(gSaturnoBeamMat,
-                    { opacity: 0 },
-                    {
-                        opacity: 0.85,
-                        duration: 0.4,
-                        delay: 0.55,
-                        yoyo: true,
-                        repeat: 1,
-                        onComplete: () => { gSaturnoBeamMat.opacity = 0; }
-                    }
-                );
-            }
-
-            setTimeout(() => {
-                isCameraTransitioning = false;
-                openSaturnoModal();
-            }, 880);
-        }
-
-        function expandSaturnoRingsBack() {
-            if (gSaturnoShockwaveMesh && gSaturnoShockwaveMat) {
-                gSaturnoShockwaveMesh.scale.set(0.2, 0.2, 1);
-                gSaturnoShockwaveMat.opacity = 0.9;
-                gsap.to(gSaturnoShockwaveMesh.scale, { x: 3.4, y: 3.4, duration: 0.75, ease: "power2.out" });
-                gsap.to(gSaturnoShockwaveMat, { opacity: 0, duration: 0.75, ease: "power2.out" });
-            }
-
-            const animProgress = { p: 0 };
-            gsap.to(animProgress, {
-                p: 1,
-                duration: 0.9,
-                ease: "back.out(1.4)",
+                ease: "back.out(1.3)",
                 onUpdate: () => {
                     const p = animProgress.p;
-                    const angleShift = (1 - p) * Math.PI * 1.5;
+                    const angleShift = (1 - p) * Math.PI;
                     gSaturnoPosters.forEach((item) => {
                         const r = item.baseRadius * p;
                         const a = item.baseAngle - angleShift;
-                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, 0);
-                        const s = 3.2 * p;
+                        const zFront = (1 - p) * 2.8;
+                        item.sprite.position.set(Math.cos(a) * r, Math.sin(a) * r, zFront);
+                        const s = 3.2 * (0.55 + 0.45 * p);
                         item.sprite.scale.set(s, s, 1);
                     });
                 }
@@ -4318,7 +4501,7 @@
             isCameraTransitioning = true;
             currentCameraZone = 'galaxy';
             playPlanetWarpSound(true);
-            updateOrbitHud();
+            updateReturnCenterButton();
 
             gsap.to(gCamera.position, {
                 x: 0,
@@ -4350,7 +4533,7 @@
 
             const renderer = new THREE.WebGLRenderer({
                 canvas,
-                antialias: false,
+                antialias: true,
                 powerPreference: "high-performance"
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -4363,11 +4546,19 @@
             controls.minDistance = 6;
             gControls = controls;
 
+            // Iluminación espacial para dar volumen 3D real a Urano y Saturno
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.58);
+            scene.add(ambientLight);
+
+            const sunLight = new THREE.DirectionalLight(0xfff4fc, 1.05);
+            sunLight.position.set(18, 35, 32);
+            scene.add(sunLight);
+
             const rotatingObjectsGroup = new THREE.Group();
             scene.add(rotatingObjectsGroup);
 
             // Partículas de la Galaxia
-            const count = 850;
+            const count = 880;
             const positions = new Float32Array(count * 3);
             const colors = new Float32Array(count * 3);
             const scales = new Float32Array(count);
@@ -4477,6 +4668,7 @@
             scene.add(centerHeart);
 
             const clickableSprites = [];
+            const webAnchorNodes = [];
 
             const centerHitBox = new THREE.Sprite(new THREE.SpriteMaterial({ opacity: 0, transparent: true, depthWrite: false }));
             centerHitBox.position.set(0, 1.6, 0);
@@ -4485,9 +4677,9 @@
             scene.add(centerHitBox);
             clickableSprites.push(centerHitBox);
 
-            // Frases flotantes con el contexto real del 11 de noviembre
+            // Frases flotantes con la hora corregida (4:30 AM)
             const phrases = [
-                { text: "11 de noviembre, 4:30 PM", color: "#e63973", radius: 10.5, angle: 0.2, y: 1.6, letter: 0 },
+                { text: "11 de noviembre, 4:30 AM", color: "#e63973", radius: 10.5, angle: 0.2, y: 1.6, letter: 0 },
                 { text: "Hasta la luna con pasitos de tortuga", color: "#f472b6", radius: 14.8, angle: 1.1, y: -1.1, letter: 1 },
                 { text: "1,300 km entre Chihuahua y Jiutepec", color: "#38bdf8", radius: 18.5, angle: 2.0, y: 1.9, letter: 4 },
                 { text: "Casi 7 años siendo mejores amigos", color: "#c084fc", radius: 13.5, angle: 2.9, y: -1.4, letter: 2 },
@@ -4506,10 +4698,11 @@
                 const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
                 const sprite = new THREE.Sprite(mat);
                 sprite.position.set(Math.cos(item.angle) * item.radius, item.y, Math.sin(item.angle) * item.radius);
-                sprite.scale.set(11.5, 3.2, 1);
+                sprite.scale.set(12.2, 2.6, 1);
                 sprite.userData = { letterIndex: item.letter };
                 rotatingObjectsGroup.add(sprite);
                 clickableSprites.push(sprite);
+                webAnchorNodes.push(sprite.position.clone());
             });
 
             const helloKittyTex = createHelloKittyTexture();
@@ -4532,66 +4725,81 @@
                 sprite.userData = { letterIndex: cfg.letter };
                 rotatingObjectsGroup.add(sprite);
                 clickableSprites.push(sprite);
+                webAnchorNodes.push(sprite.position.clone());
             });
 
+            // Agregar las telarañas leves que conectan las cosas en la galaxia principal
+            createSubtleGalaxyWebs(rotatingObjectsGroup, webAnchorNodes);
+
+            // Helper para crear partículas de hielo/polvo en los anillos planetarios
+            function createRingDustPoints(innerR, outerR, colorHex, dustCount = 220) {
+                const pos = new Float32Array(dustCount * 3);
+                for (let i = 0; i < dustCount; i++) {
+                    const r = innerR + Math.random() * (outerR - innerR);
+                    const a = Math.random() * Math.PI * 2;
+                    pos[i * 3] = Math.cos(a) * r;
+                    pos[i * 3 + 1] = Math.sin(a) * r;
+                    pos[i * 3 + 2] = (Math.random() - 0.5) * 0.25;
+                }
+                const geo = new THREE.BufferGeometry();
+                geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+                const mat = new THREE.PointsMaterial({
+                    color: colorHex,
+                    size: 0.18,
+                    transparent: true,
+                    opacity: 0.65,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+                return new THREE.Points(geo, mat);
+            }
+
             // =====================================================
-            // PLANETA 1: URANO AZUL (20 APODOS EN ANILLOS -> 100)
+            // PLANETA 1: URANO REALISTA (BANDAS GASEOSAS + ANILLOS)
             // =====================================================
             const uranoGroup = new THREE.Group();
             uranoGroup.position.set(38, 12, -26);
             scene.add(uranoGroup);
 
-            const uranoGeo = new THREE.SphereGeometry(3.4, 24, 24);
-            const uranoMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+            // Halo atmosférico suave (reemplaza la malla de alambre)
+            const uranoHaloSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                map: createAtmosphereHaloTexture('#38bdf8'),
+                transparent: true,
+                opacity: 0.55,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            }));
+            uranoHaloSprite.scale.set(10.5, 10.5, 1);
+            uranoGroup.add(uranoHaloSprite);
+
+            const uranoGeo = new THREE.SphereGeometry(3.4, 48, 48);
+            const uranoMat = new THREE.MeshStandardMaterial({
+                map: createRealisticPlanetTexture('urano'),
+                roughness: 0.55,
+                metalness: 0.08,
+                emissive: 0x075985,
+                emissiveIntensity: 0.28
+            });
             const uranoMesh = new THREE.Mesh(uranoGeo, uranoMat);
             uranoGroup.add(uranoMesh);
 
-            const uranoGlowGeo = new THREE.SphereGeometry(4.1, 18, 18);
-            const uranoGlowMat = new THREE.MeshBasicMaterial({
-                color: 0x0284c7,
-                transparent: true,
-                opacity: 0.28,
-                wireframe: true
-            });
-            uranoGroup.add(new THREE.Mesh(uranoGlowGeo, uranoGlowMat));
-
-            const beamGeo = new THREE.CylinderGeometry(0.6, 3.2, 36, 16, 1, true);
-            gUranoBeamMat = new THREE.MeshBasicMaterial({
-                color: 0x38bdf8,
-                transparent: true,
-                opacity: 0,
-                side: THREE.DoubleSide,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            uranoGroup.add(new THREE.Mesh(beamGeo, gUranoBeamMat));
-
             const uranoRingGroup = new THREE.Group();
-            uranoRingGroup.rotation.x = Math.PI * 0.42;
+            uranoRingGroup.rotation.x = Math.PI * 0.41;
+            uranoRingGroup.rotation.y = 0.12;
             uranoGroup.add(uranoRingGroup);
 
-            const ringGeo1 = new THREE.RingGeometry(5.0, 7.6, 48);
-            const ringGeo2 = new THREE.RingGeometry(8.2, 10.6, 48);
-            const ringMat = new THREE.MeshBasicMaterial({
-                color: 0x7dd3fc,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 0.32
-            });
-            uranoRingGroup.add(new THREE.Mesh(ringGeo1, ringMat));
-            uranoRingGroup.add(new THREE.Mesh(ringGeo2, ringMat));
-
-            const shockGeo = new THREE.RingGeometry(4.2, 4.9, 48);
-            gUranoShockwaveMat = new THREE.MeshBasicMaterial({
-                color: 0x38bdf8,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 0,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            gUranoShockwaveMesh = new THREE.Mesh(shockGeo, gUranoShockwaveMat);
-            uranoRingGroup.add(gUranoShockwaveMesh);
+            // Disco de anillos con textura radial realista
+            const uranoRingPlane = new THREE.Mesh(
+                new THREE.PlaneGeometry(23, 23),
+                new THREE.MeshBasicMaterial({
+                    map: createRealisticRingTexture('urano'),
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    depthWrite: false
+                })
+            );
+            uranoRingGroup.add(uranoRingPlane);
+            uranoRingGroup.add(createRingDustPoints(4.8, 10.8, 0xbae6fd, 240));
 
             gUranoNicks = [];
             const twentyUranoNicks = uranoNicknames.slice(0, 20);
@@ -4599,15 +4807,21 @@
                 const isInner = idx < 10;
                 const localIdx = isInner ? idx : idx - 10;
                 const angle = (localIdx / 10) * Math.PI * 2 + (isInner ? 0 : 0.3);
-                const r = isInner ? 6.3 : 9.4;
-                const scaleX = isInner ? 3.5 : 4.0;
-                const scaleY = isInner ? 1.15 : 1.3;
+                const r = isInner ? 6.2 : 9.3;
+                const scaleX = isInner ? 4.2 : 4.8;
+                const scaleY = isInner ? 0.95 : 1.08;
 
                 const nTex = createTextTexture(nick, '#38bdf8');
-                const nMat = new THREE.SpriteMaterial({ map: nTex, transparent: true, depthWrite: false });
+                const nMat = new THREE.SpriteMaterial({
+                    map: nTex,
+                    transparent: true,
+                    depthWrite: false,
+                    depthTest: false
+                });
                 const nSprite = new THREE.Sprite(nMat);
                 nSprite.position.set(Math.cos(angle) * r, Math.sin(angle) * r, 0);
                 nSprite.scale.set(scaleX, scaleY, 1);
+                nSprite.renderOrder = 20;
                 nSprite.userData = { isUrano: true };
                 uranoRingGroup.add(nSprite);
                 clickableSprites.push(nSprite);
@@ -4624,7 +4838,7 @@
             const uranoLabelTex = createTextTexture("Urano • 100 Maneras de Llamarte", "#38bdf8");
             const uranoLabelSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: uranoLabelTex, transparent: true, depthWrite: false }));
             uranoLabelSprite.position.set(0, 6.2, 0);
-            uranoLabelSprite.scale.set(10.5, 2.5, 1);
+            uranoLabelSprite.scale.set(11.5, 1.9, 1);
             uranoGroup.add(uranoLabelSprite);
 
             const uranoHitBox = new THREE.Sprite(new THREE.SpriteMaterial({ opacity: 0, transparent: true, depthWrite: false }));
@@ -4634,72 +4848,65 @@
             clickableSprites.push(uranoHitBox);
 
             // =====================================================
-            // PLANETA 2: SATURNO VERDE ("Para cuando lo necesites, Gigi")
+            // PLANETA 2: SATURNO VERDE REALISTA (SIN MALLA DE ALAMBRE)
             // =====================================================
             const saturnoGroup = new THREE.Group();
             saturnoGroup.position.set(-38, 14, -24);
             scene.add(saturnoGroup);
 
-            const saturnoGeo = new THREE.SphereGeometry(3.6, 24, 24);
-            const saturnoMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
+            const saturnoHaloSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+                map: createAtmosphereHaloTexture('#34d399'),
+                transparent: true,
+                opacity: 0.55,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            }));
+            saturnoHaloSprite.scale.set(11.2, 11.2, 1);
+            saturnoGroup.add(saturnoHaloSprite);
+
+            const saturnoGeo = new THREE.SphereGeometry(3.55, 48, 48);
+            const saturnoMat = new THREE.MeshStandardMaterial({
+                map: createRealisticPlanetTexture('saturno'),
+                roughness: 0.52,
+                metalness: 0.08,
+                emissive: 0x065f46,
+                emissiveIntensity: 0.28
+            });
             const saturnoMesh = new THREE.Mesh(saturnoGeo, saturnoMat);
             saturnoGroup.add(saturnoMesh);
 
-            const saturnoGlowGeo = new THREE.SphereGeometry(4.3, 18, 18);
-            const saturnoGlowMat = new THREE.MeshBasicMaterial({
-                color: 0x059669,
-                transparent: true,
-                opacity: 0.28,
-                wireframe: true
-            });
-            saturnoGroup.add(new THREE.Mesh(saturnoGlowGeo, saturnoGlowMat));
-
-            gSaturnoBeamMat = new THREE.MeshBasicMaterial({
-                color: 0x34d399,
-                transparent: true,
-                opacity: 0,
-                side: THREE.DoubleSide,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            saturnoGroup.add(new THREE.Mesh(beamGeo, gSaturnoBeamMat));
-
             const saturnoRingGroup = new THREE.Group();
             saturnoRingGroup.rotation.x = Math.PI * 0.40;
-            saturnoRingGroup.rotation.y = -0.18;
+            saturnoRingGroup.rotation.y = -0.16;
             saturnoGroup.add(saturnoRingGroup);
 
-            const sRingGeo1 = new THREE.RingGeometry(5.2, 8.2, 48);
-            const sRingGeo2 = new THREE.RingGeometry(8.7, 10.8, 48);
-            const sRingMat = new THREE.MeshBasicMaterial({
-                color: 0x6ee7b7,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 0.35
-            });
-            saturnoRingGroup.add(new THREE.Mesh(sRingGeo1, sRingMat));
-            saturnoRingGroup.add(new THREE.Mesh(sRingGeo2, sRingMat));
-
-            gSaturnoShockwaveMat = new THREE.MeshBasicMaterial({
-                color: 0x34d399,
-                side: THREE.DoubleSide,
-                transparent: true,
-                opacity: 0,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            gSaturnoShockwaveMesh = new THREE.Mesh(shockGeo, gSaturnoShockwaveMat);
-            saturnoRingGroup.add(gSaturnoShockwaveMesh);
+            const saturnoRingPlane = new THREE.Mesh(
+                new THREE.PlaneGeometry(24, 24),
+                new THREE.MeshBasicMaterial({
+                    map: createRealisticRingTexture('saturno'),
+                    side: THREE.DoubleSide,
+                    transparent: true,
+                    depthWrite: false
+                })
+            );
+            saturnoRingGroup.add(saturnoRingPlane);
+            saturnoRingGroup.add(createRingDustPoints(5.0, 11.2, 0xa7f3d0, 260));
 
             gSaturnoPosters = [];
             saturnoMediaItems.forEach((item, idx) => {
                 const angle = (idx / saturnoMediaItems.length) * Math.PI * 2;
-                const r = 8.0;
+                const r = 8.1;
                 const pTex = createSaturnoPosterTexture(item);
-                const pMat = new THREE.SpriteMaterial({ map: pTex, transparent: true, depthWrite: false });
+                const pMat = new THREE.SpriteMaterial({
+                    map: pTex,
+                    transparent: true,
+                    depthWrite: false,
+                    depthTest: false
+                });
                 const pSprite = new THREE.Sprite(pMat);
                 pSprite.position.set(Math.cos(angle) * r, Math.sin(angle) * r, 0);
                 pSprite.scale.set(3.2, 3.2, 1);
+                pSprite.renderOrder = 30 + idx;
                 pSprite.userData = {
                     isSaturnoPoster: true,
                     url: item.url,
@@ -4715,10 +4922,10 @@
                 });
             });
 
-            const saturnoLabelTex = createTextTexture("Saturno • Para cuando lo necesites, Gigi", "#34d399");
+            const saturnoLabelTex = createTextTexture("Para cuando lo necesites, Gigi", "#34d399");
             const saturnoLabelSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: saturnoLabelTex, transparent: true, depthWrite: false }));
             saturnoLabelSprite.position.set(0, 6.4, 0);
-            saturnoLabelSprite.scale.set(11.0, 2.5, 1);
+            saturnoLabelSprite.scale.set(11.5, 1.9, 1);
             saturnoGroup.add(saturnoLabelSprite);
 
             const saturnoHitBox = new THREE.Sprite(new THREE.SpriteMaterial({ opacity: 0, transparent: true, depthWrite: false }));
@@ -4746,7 +4953,6 @@
                 if (e.target.closest('#spotify-widget') ||
                     e.target.closest('#spotify-mini-tab') ||
                     e.target.closest('.top-nav-bar') ||
-                    e.target.closest('#planet-orbit-hud') ||
                     e.target.closest('#sfx-mute-btn')) return;
 
                 const moveDist = Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y);
@@ -4803,17 +5009,17 @@
                 accumulatedTime += dt;
 
                 galaxyShaderMat.uniforms.uTime.value = accumulatedTime;
-                rotatingObjectsGroup.rotation.y = accumulatedTime * 0.065;
-                centerHeart.rotation.y = accumulatedTime * 0.6;
+                rotatingObjectsGroup.rotation.y = accumulatedTime * 0.06;
+                centerHeart.rotation.y = accumulatedTime * 0.55;
 
-                const pulse = 1 + Math.sin(accumulatedTime * 3.0) * 0.045;
+                const pulse = 1 + Math.sin(accumulatedTime * 2.8) * 0.04;
                 centerHeart.scale.set(pulse, pulse, pulse);
 
-                uranoMesh.rotation.y = accumulatedTime * 0.35;
-                uranoRingGroup.rotation.z = accumulatedTime * 0.22;
+                uranoMesh.rotation.y = accumulatedTime * 0.28;
+                uranoRingGroup.rotation.z = accumulatedTime * 0.18;
 
-                saturnoMesh.rotation.y = -accumulatedTime * 0.35;
-                saturnoRingGroup.rotation.z = -accumulatedTime * 0.2;
+                saturnoMesh.rotation.y = -accumulatedTime * 0.28;
+                saturnoRingGroup.rotation.z = -accumulatedTime * 0.16;
 
                 controls.update();
                 renderer.render(scene, camera);
